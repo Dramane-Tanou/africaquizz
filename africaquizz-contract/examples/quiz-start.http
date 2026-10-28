@@ -1,0 +1,9 @@
+POST http://localhost:8000/api/v1/quiz/sessions
+Content-Type: application/json
+Authorization: Bearer <TOKEN>
+Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
+
+{
+  "mode": "classic",
+  "locale": "fr"
+}

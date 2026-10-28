@@ -1,0 +1,66 @@
+services:
+  api:
+    build:
+      context: ./africaquizz-api
+      dockerfile: Dockerfile
+    image: africaquizz-api
+    container_name: aq_api
+    restart: unless-stopped
+    working_dir: /var/www/
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./africaquizz-api:/var/www
+      - api-vendor:/var/www/vendor
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: africaquizz
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      REDIS_HOST: redis
+      AUTH_2FA_BYPASS: "true"
+    networks:
+      - africaquizz-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: aq_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: africaquizz
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - aq-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d africaquizz"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - africaquizz-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: aq_redis
+    restart: unless-stopped
+    volumes:
+      - aq-redis-data:/data
+    networks:
+      - africaquizz-network
+
+networks:
+  africaquizz-network:
+    driver: bridge
+
+volumes:
+  api-vendor:
+  aq-postgres-data:
+  aq-redis-data:

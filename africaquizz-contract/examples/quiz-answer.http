@@ -1,0 +1,12 @@
+POST http://localhost:8000/api/v1/quiz/sessions/<SESSION_ID>/answers
+Content-Type: application/json
+Authorization: Bearer <TOKEN>
+Idempotency-Key: 550e8400-e29b-41d4-a716-446655440001
+
+{
+  "question_id": "<QUESTION_ID>",
+  "answer": "B",
+  "client_elapsed_ms": 4210,
+  "rtt_ms": 180,
+  "locale": "fr"
+}

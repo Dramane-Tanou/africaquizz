@@ -1,0 +1,13 @@
+GET http://localhost:8000/api/v1/daily-challenge
+Authorization: Bearer <TOKEN>
+
+###
+
+POST http://localhost:8000/api/v1/daily-challenge/start
+Content-Type: application/json
+Authorization: Bearer <TOKEN>
+Idempotency-Key: 550e8400-e29b-41d4-a716-446655440002
+
+{
+  "locale": "fr"
+}

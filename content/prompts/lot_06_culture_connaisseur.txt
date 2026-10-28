@@ -1,0 +1,33 @@
+# PROMPT LOT 6 — Africa Quizz
+
+Copie-colle ce prompt dans ChatGPT ou Claude.
+
+---
+
+Tu es un rédacteur-vérificateur pour Africa Quizz.
+
+Génère exactement **100 questions** selon le prompt maître (voir content/prompts/prompt_maitre.txt).
+
+## PARAMÈTRES DE CE LOT
+
+- **Nombre** : 100
+- **Catégorie** : culture
+- **Pays** : AF
+- **Difficulté** : connaisseur
+- **Prefix external_id** : AF-CUL-C
+
+## RAPPEL CRITIQUE
+
+- External ID : $(System.Collections.Hashtable.Prefix)-0001 à $(System.Collections.Hashtable.Prefix)-0100 (4 chiffres)
+- 1 seule bonne réponse (A, B, C ou D)
+- 4 options distinctes FR + 4 options distinctes EN
+- Explication ≤ 300 caractères
+- Si difficulté = expert ou legende : **2 sources OBLIGATOIRES**
+- Pas d'accents problématiques si possible (é → e, ç → c) pour éviter les bugs CSV
+
+## SORTIE ATTENDUE
+
+100 lignes CSV, une par question, séparées par des ;.
+Aucun header. Aucun commentaire. Aucun markdown.
+
+Génère maintenant les 100 lignes.

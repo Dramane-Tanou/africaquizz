@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guide d’installation locale — Africa Quizz</title>
+  <style>
+    :root { color: #17231d; font: 10.5pt/1.5 "Segoe UI", Arial, sans-serif; }
+    body { margin: 0 auto; max-width: 860px; padding: 38px; }
+    h1, h2, h3 { color: #126044; line-height: 1.2; }
+    h1 { font-size: 28pt; margin: 0 0 8px; }
+    h2 { border-bottom: 2px solid #e8b733; margin-top: 30px; padding-bottom: 5px; }
+    h3 { margin-bottom: 6px; }
+    .lead { color: #43584e; font-size: 13pt; margin: 0 0 26px; }
+    .note { background: #fff5d8; border-left: 4px solid #e8b733; padding: 10px 14px; }
+    pre { background: #f1f4f2; border: 1px solid #d6dfd9; border-radius: 4px; font: 9pt/1.45 Consolas, monospace; overflow-wrap: anywhere; padding: 10px 12px; white-space: pre-wrap; }
+    code { font-family: Consolas, monospace; }
+    a { color: #126044; }
+    .page-break { break-before: page; }
+    footer { border-top: 1px solid #d6dfd9; color: #53655b; font-size: 9pt; margin-top: 32px; padding-top: 8px; }
+    @media print {
+      body { max-width: none; padding: 0; }
+      h2, h3 { break-after: avoid; }
+      pre, .note { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Africa Quizz</h1>
+  <p class="lead">Guide d’installation locale — Windows, Docker Compose et PWA</p>
+  <p>Ce guide permet à un développeur de démarrer l’API Laravel et la PWA, puis de vérifier le parcours « Jouer 5 questions » sans utiliser de données de production.</p>
+
+  <h2>1. Prérequis</h2>
+  <ul>
+    <li>Git.</li>
+    <li>Docker Desktop démarré avec le moteur Linux et Docker Compose v2.</li>
+    <li>Node.js LTS et npm pour la PWA.</li>
+  </ul>
+  <p>Le conteneur API contient PHP, Composer, les extensions PostgreSQL et les dépendances Laravel. Aucun PHP ni Composer n’est requis sur Windows pour suivre ce guide.</p>
+
+  <h2>2. Récupérer le dépôt et préparer l’API</h2>
+  <p>Ouvrez PowerShell dans le dossier où vous souhaitez travailler :</p>
+  <pre>git clone https://github.com/rahimgiter/africaquizz.git
+Set-Location africaquizz
+Copy-Item africaquizz-api\.env.example africaquizz-api\.env</pre>
+  <p>Construisez l’image de développement. Composer installe les dépendances lors de cette étape :</p>
+  <pre>docker compose build api</pre>
+  <p>Générez une clé locale, démarrez PostgreSQL, Redis et Laravel, puis appliquez les migrations et les données de démonstration :</p>
+  <pre>docker compose run --rm api php artisan key:generate
+docker compose up -d
+docker compose exec api php artisan migrate --seed --force</pre>
+    <p>Chargez le catalogue ISO des pays et territoires pour le choix du pays dans le profil :</p>
+    <pre>docker compose exec api php artisan db:seed --class=CountrySeeder --force</pre>
+  <p>Vérifiez que l’API répond : ouvrez <code>http://127.0.0.1:8000/up</code>. Le résultat attendu est HTTP 200.</p>
+  <p class="note"><strong>Ne lancez pas <code>migrate:fresh</code> sur une base contenant des données à conserver.</strong> Cette commande supprime toutes les tables et leurs données.</p>
+
+  <h2>3. Préparer et démarrer la PWA</h2>
+  <pre>Copy-Item africaquizz-pwa\.env.example africaquizz-pwa\.env
+Set-Location africaquizz-pwa
+npm ci
+npm run dev -- --host 127.0.0.1</pre>
+  <p>La PWA utilise par défaut <code>http://127.0.0.1:8000</code> comme API. Ouvrez <code>http://127.0.0.1:5173/bienvenue</code> et cliquez sur « Jouer 5 questions ».</p>
+  <p>Interface équipe : ouvrez <code>http://127.0.0.1:5173/admin/connexion</code>. Après connexion, chaque rôle est dirigé vers son espace : <code>/admin/superadmin</code>, <code>/admin/admin</code>, <code>/admin/relecteur</code> ou <code>/admin/editeur</code>. Le SuperAdmin gère les accès de l’équipe, les catégories et les badges ; l’Admin pilote les joueurs, les indicateurs et l’audit ; le Relecteur contrôle les questions bilingues, leurs sources et les signalements ; l’Éditeur traite les imports, la médiathèque et la publication.</p>
+  <p>En environnement local Docker, le bypass 2FA est activé pour faciliter les essais. Il est limité aux environnements <code>local</code> et <code>testing</code> et ne doit pas être activé en production. Hors de ces environnements, la configuration et la vérification TOTP restent obligatoires.</p>
+  <p>En local, le seeder crée cinq questions bilingues de démonstration et quatre réponses par question. Elles permettent de parcourir un quiz sans importer une sauvegarde externe.</p>
+  <p>Pour créer les comptes de test du guide dans PostgreSQL, renseignez les variables <code>AFRICAQUIZZ_SUPERADMIN_PASSWORD</code>, <code>AFRICAQUIZZ_ADMIN_PASSWORD</code>, <code>AFRICAQUIZZ_REVIEWER_PASSWORD</code> et <code>AFRICAQUIZZ_EDITOR_PASSWORD</code> dans <code>africaquizz-api\.env</code>, puis lancez <code>docker compose exec api php artisan db:seed --class=GuideAccountsSeeder --force</code>. Ne réutilisez pas ces mots de passe en production.</p>
+
+  <div class="page-break"></div>
+  <h2>4. Tests automatisés et vérifications manuelles</h2>
+  <p>Depuis le dossier racine du dépôt :</p>
+  <pre>docker compose exec api php artisan test
+docker compose exec api php artisan route:list
+Set-Location africaquizz-pwa
+npm run build</pre>
+  <p>Le test <code>QuizStartTest</code> vérifie qu’un invité peut démarrer une partie, reçoit cinq questions traduites et quatre options par question, et qu’un mode non supporté est rejeté.</p>
+  <p>Pour tester l’endpoint directement dans PowerShell :</p>
+  <pre>Invoke-RestMethod -Method Post `
+  -Uri http://127.0.0.1:8000/api/v1/quiz/sessions `
+  -ContentType 'application/json' `
+  -Headers @{ Accept = 'application/json' } `
+  -Body '{"mode":"classic","locale":"fr"}'</pre>
+  <p>La réponse doit contenir <code>data.id</code> et une liste <code>data.questions</code> de cinq éléments.</p>
+
+  <h2>5. Données de démonstration et sauvegardes</h2>
+  <p>La commande <code>migrate --seed</code> charge automatiquement les questions de démonstration en environnement <code>local</code> ou <code>testing</code>. Pour réinitialiser une base locale jetable uniquement :</p>
+  <pre>docker compose exec api php artisan migrate:fresh --seed --force</pre>
+  <p>Une sauvegarde complète peut contenir des comptes, des mots de passe hachés, des adresses e-mail et d’autres données personnelles. Les fichiers de sauvegarde et les fichiers <code>.env</code> sont exclus de Git et ne sont pas fournis dans le dépôt. N’importez qu’une sauvegarde autorisée, dans une base locale isolée.</p>
+
+  <h2>6. Dépannage</h2>
+  <ul>
+    <li><strong>Docker ne répond pas :</strong> démarrez Docker Desktop et vérifiez que le moteur Linux est actif.</li>
+    <li><strong>Erreur « could not find driver » :</strong> utilisez l’API du conteneur avec <code>docker compose up -d</code>, pas le PHP Windows sans extension PostgreSQL.</li>
+    <li><strong>API HTTP 500 :</strong> consultez <code>docker compose logs api</code> et <code>docker compose logs postgres</code>, puis vérifiez que migrations et seeder ont été exécutés.</li>
+    <li><strong>Port 8000 ou 5173 occupé :</strong> arrêtez l’application qui l’utilise ou modifiez le port correspondant et l’URL API dans <code>africaquizz-pwa\.env</code>.</li>
+    <li><strong>Arrêter les services :</strong> depuis la racine, exécutez <code>docker compose down</code>. Les volumes de données ne sont pas supprimés.</li>
+  </ul>
+
+  <h2>7. Architecture utile au test</h2>
+  <ul>
+    <li><code>africaquizz-api</code> : API Laravel et tests PHPUnit.</li>
+    <li><code>africaquizz-pwa</code> : interface joueur React, TypeScript et Vite.</li>
+    <li><code>africaquizz-contract</code> : types, exemples et contrat API.</li>
+    <li><code>docker-compose.yml</code> : API HTTP, PostgreSQL et Redis pour le développement local.</li>
+  </ul>
+  <footer>Guide local Africa Quizz — à utiliser avec des données de développement uniquement.</footer>
+</body>
+</html>
