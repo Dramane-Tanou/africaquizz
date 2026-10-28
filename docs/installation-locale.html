@@ -41,9 +41,10 @@
 
   <h2>2. Récupérer le dépôt et préparer l’API</h2>
   <p>Ouvrez PowerShell dans le dossier où vous souhaitez travailler :</p>
-  <pre>git clone https://github.com/rahimgiter/africaquizz.git
+  <pre>git clone https://github.com/Dramane-Tanou/africaquizz.git
 Set-Location africaquizz
 Copy-Item africaquizz-api\.env.example africaquizz-api\.env</pre>
+  <p class="note">Le dépôt GitHub est privé : demandez au propriétaire de vous accorder l’accès avant de le cloner.</p>
   <p>Construisez l’image de développement. Composer installe les dépendances lors de cette étape :</p>
   <pre>docker compose build api</pre>
   <p>Générez une clé locale, démarrez PostgreSQL, Redis et Laravel, puis appliquez les migrations et les données de démonstration :</p>
