@@ -8,6 +8,8 @@ import "@fontsource/nunito/latin-400.css";
 import "@fontsource/nunito/latin-700.css";
 import "./index.css";
 import "./i18n";
+// Capture `beforeinstallprompt` dès le démarrage, avant que la page d'installation soit montée.
+import "./lib/install";
 import { normalizeError } from "./lib/api";
 import { SettingsProvider } from "./context/SettingsContext";
 import { AuthProvider } from "./context/AuthContext";

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
@@ -6,11 +6,8 @@ import { useSettings, type Theme } from "../context/SettingsContext";
 import { authApi } from "../lib/endpoints";
 import { normalizeError } from "../lib/api";
 import { useErrorMessage } from "../hooks/useCommon";
-import { Alert, Button, Card, Field, PageTitle, Segmented, Toggle } from "../components/ui/primitives";
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-}
+import { useInstall } from "../lib/install";
+import { Alert, Button, ButtonLink, Card, Field, PageTitle, Segmented, Toggle } from "../components/ui/primitives";
 
 export default function Settings() {
   const { t } = useTranslation();
@@ -18,21 +15,12 @@ export default function Settings() {
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
   const errMsg = useErrorMessage();
-  const [installEvt, setInstallEvt] = useState<BeforeInstallPromptEvent | null>(null);
+  const install = useInstall();
   const [exporting, setExporting] = useState(false);
   const [msg, setMsg] = useState<{ tone: "danger" | "success"; text: string } | null>(null);
   const [showDelete, setShowDelete] = useState(false);
   const [password, setPassword] = useState("");
   const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const h = (e: Event) => {
-      e.preventDefault();
-      setInstallEvt(e as BeforeInstallPromptEvent);
-    };
-    window.addEventListener("beforeinstallprompt", h);
-    return () => window.removeEventListener("beforeinstallprompt", h);
-  }, []);
 
   async function exportData() {
     setExporting(true);
@@ -95,10 +83,16 @@ export default function Settings() {
         </div>
         <Toggle checked={settings.hideTimer} onChange={(v) => update({ hideTimer: v })} label={t("settings.hideTimer")} hint={t("settings.hideTimerHint")} />
         <Toggle checked={settings.vibrate} onChange={(v) => update({ vibrate: v })} label={t("settings.sound")} />
-        {installEvt && (
-          <Button variant="green" block onClick={() => void installEvt.prompt().then(() => setInstallEvt(null))}>
+        {install.canPrompt ? (
+          <Button variant="green" block onClick={() => void install.prompt()}>
             📲 {t("settings.install")}
           </Button>
+        ) : (
+          !install.installed && (
+            <ButtonLink to="/installer" variant="green" block>
+              📲 {t("settings.install")}
+            </ButtonLink>
+          )
         )}
       </Card>
 

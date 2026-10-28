@@ -2,7 +2,7 @@ import { NavLink, Outlet, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Logo } from "../ui/Brand";
 import { cx } from "../ui/primitives";
-import { OfflineBanner, VerifyBanner } from "./Banners";
+import { InstallBanner, OfflineBanner, VerifyBanner } from "./Banners";
 
 const Icon = {
   home: <path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />,
@@ -46,6 +46,7 @@ export default function AppShell() {
       </header>
       <OfflineBanner />
       <VerifyBanner />
+      <InstallBanner />
       <main id="main" className="flex-1 px-4 pb-28 pt-4">
         <Outlet />
       </main>

@@ -17,6 +17,7 @@ const Leaderboard = lazy(() => import("./pages/Leaderboard"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Revision = lazy(() => import("./pages/Revision"));
 const Settings = lazy(() => import("./pages/Settings"));
+const Install = lazy(() => import("./pages/Install"));
 const DailyChallenge = lazy(() => import("./pages/DailyChallenge"));
 const ForgotPassword = lazy(() => import("./pages/auth/Account").then((m) => ({ default: m.ForgotPassword })));
 const ResetPassword = lazy(() => import("./pages/auth/Account").then((m) => ({ default: m.ResetPassword })));
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="bienvenue" element={<Onboarding />} />
+        <Route path="installer" element={<Install />} />
         <Route path="jouer/:id" element={<Play />} />
         <Route path="resultats/:id" element={<Result />} />
         <Route path="connexion" element={<GuestOnly><Login /></GuestOnly>} />

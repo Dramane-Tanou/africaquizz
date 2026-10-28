@@ -4,11 +4,13 @@ import { useStartGame } from "../hooks/useStartGame";
 import { Alert, Button, ButtonLink } from "../components/ui/primitives";
 import { LogoMark } from "../components/ui/Brand";
 import { OfflineBanner } from "../components/layout/Banners";
+import { useInstall } from "../lib/install";
 
 export default function Onboarding() {
   const { t } = useTranslation();
   const { markOnboarded } = useAuth();
   const { start, loading, error } = useStartGame();
+  const { installed } = useInstall();
 
   return (
     <div className="pattern-bg min-h-[100dvh]">
@@ -42,6 +44,11 @@ export default function Onboarding() {
           <ButtonLink to="/connexion" variant="secondary" block>
             {t("onboarding.login")}
           </ButtonLink>
+          {!installed && (
+            <ButtonLink to="/installer" variant="ghost" block>
+              📲 {t("install.cta")}
+            </ButtonLink>
+          )}
         </div>
       </div>
     </div>
