@@ -24,14 +24,14 @@ class ImportController extends Controller
         $extension = strtolower($file->getClientOriginalExtension());
 
         if ($extension === 'xlsm') {
-            return response()->json(['message' => 'Format XLSX non supportÃƒÂ© pour le MVP. Utilisez CSV ou JSON.'], 422);
+            return response()->json(['message' => 'Format XLSX non supporté pour le MVP. Utilisez CSV ou JSON.'], 422);
         }
 
         // Stockage
         $storedName = Str::uuid() . '.' . $extension;
         $storedPath = $file->storeAs('imports', $storedName);
 
-        // CrÃƒÆ’Ã‚Â©ation de l'Import
+        // Création de l'Import
         // === CORRECTION : admin vs user ===
         $authUser = $request->user('sanctum');
         $userId = null;
@@ -70,7 +70,7 @@ class ImportController extends Controller
                 'id' => $import->id,
                 'status' => $import->status,
                 'totals' => $totals,
-                'message' => 'Fichier parsÃƒÆ’Ã‚Â©. Utilisez POST /admin/imports/{id}/confirm pour importer les lignes valides.',
+                'message' => 'Fichier parsé. Utilisez POST /admin/imports/{id}/confirm pour importer les lignes valides.',
             ]
         ], 201);
     }
@@ -99,13 +99,13 @@ class ImportController extends Controller
         ]);
     }
 
-    // 3. Confirmer l'import (crÃƒÆ’Ã‚Â©er les questions en BROUILLON)
+    // 3. Confirmer l'import (créer les questions en BROUILLON)
     public function confirm($id)
     {
         $import = Import::findOrFail($id);
 
         if ($import->status !== 'VALIDATED') {
-            return response()->json(['message' => "L'import doit ÃƒÆ’Ã‚Âªtre en statut VALIDATED (actuel : {$import->status})"], 422);
+            return response()->json(['message' => "L'import doit être en statut VALIDATED (actuel : {$import->status})"], 422);
         }
 
         $result = $this->importService->importValidRows($import);
@@ -116,7 +116,7 @@ class ImportController extends Controller
                 'status' => $import->status,
                 'questions_created' => $result['created'],
                 'questions_updated' => $result['updated'],
-                'message' => "{$result['created']} questions crÃƒÆ’Ã‚Â©ÃƒÆ’Ã‚Â©es en BROUILLON. {$result['updated']} nouvelles versions crÃƒÆ’Ã‚Â©ÃƒÆ’Ã‚Â©es.",
+                'message' => "{$result['created']} questions créées en BROUILLON. {$result['updated']} nouvelles versions créées.",
             ]
         ]);
     }
@@ -147,7 +147,7 @@ class ImportController extends Controller
         return response()->json(['data' => $imports]);
     }
 
-    // 6. Rapport d'erreurs tÃƒÆ’Ã‚Â©lÃƒÆ’Ã‚Â©chargeable
+    // 6. Rapport d'erreurs téléchargeable
     public function errorsReport($id)
     {
         $import = Import::findOrFail($id);

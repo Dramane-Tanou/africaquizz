@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class AdminAuthController extends Controller
 {
-    // Ãƒâ€°tape 1 : Login avec email/password (retourne un token temporaire si 2FA activÃƒÂ©)
+    // Étape 1 : Login avec email/password (retourne un token temporaire si 2FA activé)
     public function login(Request $request, TwoFactorService $twoFactor)
     {
         $validated = $request->validate([
@@ -81,12 +81,12 @@ class AdminAuthController extends Controller
                 'secret' => $secret,
                 'qr_url' => $qrUrl,
                 'manual_entry' => $secret,
-                'message' => 'Scanne le QR code, puis envoie un code valide ÃƒÂ  /admin/auth/2fa/confirm.',
+                'message' => 'Scanne le QR code, puis envoie un code valide à /admin/auth/2fa/confirm.',
             ]
         ]);
     }
 
-    // Ãƒâ€°tape 2b : Confirmer 2FA (l'admin envoie un code gÃƒÂ©nÃƒÂ©rÃƒÂ© par son app)
+    // Étape 2b : Confirmer 2FA (l'admin envoie un code généré par son app)
     public function confirm2fa(Request $request, TwoFactorService $twoFactor)
     {
         $validated = $request->validate(['code' => 'required|string|size:6']);
@@ -108,19 +108,19 @@ class AdminAuthController extends Controller
             'two_factor_recovery_codes' => encrypt(json_encode($recoveryCodes)),
         ]);
 
-        // RÃƒÂ©voquer le token setup
+        // Révoquer le token setup
         $admin->currentAccessToken()->delete();
 
         return response()->json([
             'data' => [
                 'two_factor_confirmed' => true,
                 'recovery_codes' => $recoveryCodes,
-                'message' => '2FA activÃƒÂ©. Conserve ces codes de secours en lieu sÃƒÂ»r.',
+                'message' => '2FA activé. Conserve ces codes de secours en lieu sûr.',
             ]
         ]);
     }
 
-    // Ãƒâ€°tape 2c : VÃƒÂ©rifier le code 2FA au login
+    // Étape 2c : Vérifier le code 2FA au login
     public function verify2fa(Request $request, TwoFactorService $twoFactor)
     {
         $validated = $request->validate(['code' => 'required|string|size:6']);
@@ -135,10 +135,10 @@ class AdminAuthController extends Controller
             return response()->json(['message' => 'Code 2FA incorrect.'], 422);
         }
 
-        // RÃƒÂ©voquer le token temporaire
+        // Révoquer le token temporaire
         $admin->currentAccessToken()->delete();
 
-        // CrÃƒÂ©er le token final
+        // Créer le token final
         $admin->update(['last_login_at' => now()]);
         $finalToken = $admin->createToken('admin_token')->plainTextToken;
 
@@ -158,6 +158,6 @@ class AdminAuthController extends Controller
     public function logout(Request $request)
     {
         $request->user('admin')->currentAccessToken()->delete();
-        return response()->json(['message' => 'DÃƒÂ©connectÃƒÂ©.']);
+        return response()->json(['message' => 'Déconnecté.']);
     }
 }

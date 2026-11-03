@@ -25,7 +25,7 @@ class QuestionImportService
         return match(strtolower($extension)) {
             'csv', 'txt' => $this->parseCsv($path),
             'json' => $this->parseJson($path),
-            default => throw new \Exception("Format non supportÃƒÂ© : $extension. Formats acceptÃƒÂ©s : CSV, JSON (XLSX en v1.1)"),
+            default => throw new \Exception("Format non supporté : $extension. Formats acceptés : CSV, JSON (XLSX en v1.1)"),
         };
     }
 
@@ -35,12 +35,12 @@ class QuestionImportService
         $handle = fopen($path, 'r');
         if (!$handle) throw new \Exception("Impossible d'ouvrir le fichier CSV");
 
-        // DÃƒÂ©tecte BOM
+        // Détecte BOM
         $bom = fread($handle, 3);
         $hasBom = ($bom === "\xEF\xBB\xBF");
         if (!$hasBom) rewind($handle);
 
-        // DÃƒÂ©tecte sÃƒÂ©parateur
+        // Détecte séparateur
         $firstLine = fgets($handle);
         rewind($handle);
         if ($hasBom) fread($handle, 3);
@@ -61,7 +61,7 @@ class QuestionImportService
             $rows[] = ['row_number' => $rowNumber, 'data' => $row];
             if (count($rows) > self::MAX_ROWS) {
                 fclose($handle);
-                throw new \Exception("Le fichier dÃƒÂ©passe " . self::MAX_ROWS . " lignes");
+                throw new \Exception("Le fichier dépasse " . self::MAX_ROWS . " lignes");
             }
         }
         fclose($handle);
@@ -75,7 +75,7 @@ class QuestionImportService
         if (!is_array($data)) throw new \Exception("JSON invalide");
 
         if (isset($data['data']) && is_array($data['data'])) $data = $data['data'];
-        if (count($data) > self::MAX_ROWS) throw new \Exception("Le fichier dÃƒÂ©passe " . self::MAX_ROWS . " lignes");
+        if (count($data) > self::MAX_ROWS) throw new \Exception("Le fichier dépasse " . self::MAX_ROWS . " lignes");
 
         $rows = [];
         foreach ($data as $i => $row) {
@@ -143,13 +143,13 @@ class QuestionImportService
 
         $validDiff = ['decouverte', 'connaisseur', 'expert', 'legende'];
         if (!empty($data['difficulty']) && !in_array($data['difficulty'], $validDiff)) {
-            $errors[] = "DifficultÃƒÂ© invalide : {$data['difficulty']}";
+            $errors[] = "Difficulté invalide : {$data['difficulty']}";
         }
 
         if (!empty($data['category'])) {
             $cat = Category::where('slug', $data['category'])->first();
             if (!$cat) {
-                $errors[] = "CatÃƒÂ©gorie inconnue : {$data['category']}";
+                $errors[] = "Catégorie inconnue : {$data['category']}";
             } else {
                 $data['category_id'] = $cat->id;
             }
@@ -159,7 +159,7 @@ class QuestionImportService
             $optionKeys = ['A', 'B', 'C', 'D'];
             $correct = strtoupper($data['correct'] ?? '');
             if (!in_array($correct, $optionKeys)) {
-                $errors[] = "correct doit ÃƒÂªtre A, B, C ou D";
+                $errors[] = "correct doit être A, B, C ou D";
             }
             foreach ($optionKeys as $k) {
                 foreach (['fr', 'en'] as $lang) {
@@ -171,7 +171,7 @@ class QuestionImportService
             }
             $uniqueFr = array_unique([$data['option_a_fr'] ?? '', $data['option_b_fr'] ?? '', $data['option_c_fr'] ?? '', $data['option_d_fr'] ?? '']);
             if (count($uniqueFr) < 4) {
-                $errors[] = "Les 4 options FR doivent ÃƒÂªtre distinctes";
+                $errors[] = "Les 4 options FR doivent être distinctes";
             }
         }
 
@@ -183,12 +183,12 @@ class QuestionImportService
         }
 
         if (in_array($data['difficulty'] ?? '', ['expert', 'legende']) && empty($data['source_2_url'])) {
-            $errors[] = "Deux sources requises pour la difficultÃƒÂ© {$data['difficulty']}";
+            $errors[] = "Deux sources requises pour la difficulté {$data['difficulty']}";
         }
 
         foreach (['explanation_fr', 'explanation_en'] as $f) {
             if (!empty($data[$f]) && mb_strlen($data[$f]) > 300) {
-                $errors[] = "$f dÃƒÂ©passe 300 caractÃƒÂ¨res (" . mb_strlen($data[$f]) . ")";
+                $errors[] = "$f dépasse 300 caractères (" . mb_strlen($data[$f]) . ")";
             }
         }
 
@@ -196,7 +196,7 @@ class QuestionImportService
         if (!empty($data['external_id'])) {
             $existing = Question::where('external_id', $data['external_id'])->first();
             if ($existing) {
-                $warnings[] = "external_id dÃƒÂ©jÃƒÂ  existant : une nouvelle version sera crÃƒÂ©ÃƒÂ©e";
+                $warnings[] = "external_id déjà existant : une nouvelle version sera créée";
             }
         }
 
@@ -204,7 +204,7 @@ class QuestionImportService
             ->where('text', $data['question_fr'])
             ->first();
         if ($duplicate && empty($warnings)) {
-            $warnings[] = "Question identique dÃƒÂ©jÃƒÂ  existante";
+            $warnings[] = "Question identique déjà existante";
         }
 
         if (!empty($data['question_fr'])) {
@@ -214,10 +214,10 @@ class QuestionImportService
                     ->whereRaw("similarity(text, ?) >= ?", [$data['question_fr'], self::SIMILARITY_THRESHOLD])
                     ->count();
                 if ($similar > 0 && empty($warnings)) {
-                    $warnings[] = "Question similaire ÃƒÂ  $similar question(s) existante(s)";
+                    $warnings[] = "Question similaire à $similar question(s) existante(s)";
                 }
             } catch (\Exception $e) {
-                // pg_trgm peut ne pas ÃƒÂªtre prÃƒÂªt, on ignore
+                // pg_trgm peut ne pas être prêt, on ignore
             }
         }
 

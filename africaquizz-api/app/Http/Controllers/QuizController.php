@@ -93,7 +93,7 @@ class QuizController extends Controller
         $session = QuizSession::findOrFail($sessionId);
 
         if ($session->status !== 'active') {
-            return response()->json(['message' => 'Session terminÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©e ou expirÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©e.'], 422);
+            return response()->json(['message' => 'Session terminée ou expirée.'], 422);
         }
 
         QuizSessionQuestion::where('quiz_session_id', $session->id)
@@ -105,7 +105,7 @@ class QuizController extends Controller
             ->first();
 
         if ($existingAnswer) {
-            return response()->json(['message' => 'DÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â  rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©pondu ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â  cette question.'], 422);
+            return response()->json(['message' => 'Déjà répondu à cette question.'], 422);
         }
 
         $question = Question::findOrFail($validated['question_id']);
@@ -195,7 +195,7 @@ class QuizController extends Controller
         $session = QuizSession::findOrFail($sessionId);
 
         if ($session->status !== 'active') {
-            return response()->json(['message' => 'Session dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â  terminÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©e.'], 422);
+            return response()->json(['message' => 'Session déjà terminée.'], 422);
         }
 
         $totalQuestions = $session->sessionQuestions()->count();
@@ -228,12 +228,12 @@ class QuizController extends Controller
         if ($session->user_id) {
             $user = $session->user;
             if ($user) {
-                // 1. CrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©diter l'XP
+                // 1. Créditer l'XP
                 if ($user->profile) {
                     $user->profile->addXp($totalXp, 'quiz_completion', $session->id);
                 }
 
-                // 2. Mettre ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â  jour la sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rie
+                // 2. Mettre à jour la série
                 $streak = $user->streak ?: Streak::create(['user_id' => $user->id])->refresh();
                 $streakData = $streak->updateOnPlay($user->profile?->timezone ?? 'UTC');
 
@@ -258,7 +258,7 @@ class QuizController extends Controller
                     }
                 }
 
-                // 4. Si c'est le dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©fi du jour, enregistrer le rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sultat
+                // 4. Si c'est le défi du jour, enregistrer le résultat
                 if ($session->mode === 'daily') {
                     $today = now()->toDateString();
                     $alreadyRecorded = UserDailyResult::where('user_id', $user->id)
