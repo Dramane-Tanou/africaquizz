@@ -36,13 +36,6 @@ export function rankFromXp(xp: number): Profile["rank"] {
   return code;
 }
 
-/** Drapeau emoji depuis un code ISO-2 (ex. « BF » → 🇧🇫). */
-export function flag(iso2?: string | null): string {
-  if (!iso2 || iso2.length !== 2) return "";
-  const base = 0x1f1e6;
-  return String.fromCodePoint(...iso2.toUpperCase().split("").map((c) => base + c.charCodeAt(0) - 65));
-}
-
 export const BADGES = [
   { code: "first_quiz", icon: "🎯" },
   { code: "regular", icon: "🔥" },

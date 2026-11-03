@@ -11,6 +11,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'date_of_birth' => 'required|date|before:today',
+            'country_id' => 'required|uuid|exists:countries,id',
             'parental_email' => 'nullable|email|required_if_age_between_13_and_15',
             'timezone' => 'nullable|string',
             'locale' => 'nullable|in:fr,en',

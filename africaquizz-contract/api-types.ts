@@ -36,6 +36,8 @@ export interface RegisterRequest {
   password: string;
   password_confirmation: string;
   date_of_birth: string;
+  /** Obligatoire : id d'un pays de GET /countries. */
+  country_id: string;
   timezone?: string;
   locale?: 'fr' | 'en';
   parental_email?: string;

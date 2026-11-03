@@ -20,6 +20,8 @@ export interface AnswerRecord {
 export interface GameState {
   session: PlaySession;
   mode: PlayMode;
+  /** Pays (ISO-2) du mode « Mon pays ». */
+  country?: string;
   /** Nombre de questions jouées dans ce mode (5 pour l'onboarding). */
   limit: number;
   index: number;
@@ -37,11 +39,12 @@ export const ONBOARDING_QUESTIONS = 5;
 
 const key = (id: string) => `aq.game.${id}`;
 
-export function createGame(session: PlaySession, mode: PlayMode): GameState {
+export function createGame(session: PlaySession, mode: PlayMode, country?: string): GameState {
   const total = session.questions.length;
   const game: GameState = {
     session,
     mode,
+    country,
     limit: mode === "onboarding" ? Math.min(ONBOARDING_QUESTIONS, total) : total,
     index: 0,
     answers: [],

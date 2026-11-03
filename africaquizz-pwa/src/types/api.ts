@@ -21,6 +21,7 @@ export interface Profile {
   pseudo: string;
   avatar: string;
   country_id: string | null;
+  country?: Country | null;
   birth_year: number | null;
   timezone: string;
   locale: 'fr' | 'en';
@@ -34,6 +35,8 @@ export interface Country {
   id: string;
   iso2: string;
   iso3: string;
+  region?: string | null;
+  is_african?: boolean;
 }
 
 export interface RegisterRequest {
@@ -42,6 +45,7 @@ export interface RegisterRequest {
   password: string;
   password_confirmation: string;
   date_of_birth: string;
+  country_id: string;
   timezone?: string;
   locale?: 'fr' | 'en';
   parental_email?: string;

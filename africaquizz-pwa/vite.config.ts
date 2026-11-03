@@ -29,6 +29,15 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
+        // Les 265 drapeaux ne sont pas préchargés : chacun est mis en cache à son premier affichage.
+        globIgnores: ["flags/**"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith("/flags/"),
+            handler: "CacheFirst",
+            options: { cacheName: "flags", expiration: { maxEntries: 300 } },
+          },
+        ],
         navigateFallback: "/index.html",
         // Les appels API ne sont jamais mis en cache : le serveur reste l'autorité.
         navigateFallbackDenylist: [/^\/api\//],

@@ -42,7 +42,7 @@ docker compose ps   # aq_api, aq_postgres et aq_redis doivent être « Up »
 
 ### 2. Importer la banque de questions
 
-`database/data/questions.json` contient 1764 questions : 1709 publiées et 55 à vérifier, réparties sur 12 catégories. L’import est rejouable sans créer de doublons.
+`database/data/questions.json` contient 1764 questions : 1709 publiées et 55 à vérifier, réparties sur 12 catégories. L’import est rejouable sans créer de doublons. Les questions sont rattachées aux pays africains qu’elles concernent : c’est ce qui alimente le quiz « Spécial mon pays » de l’accueil (55 questions pour le Burkina Faso, par exemple).
 
 ```powershell
 docker compose exec api php artisan db:seed --class=CategorySeeder --force

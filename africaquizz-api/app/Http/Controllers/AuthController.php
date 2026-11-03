@@ -41,6 +41,7 @@ class AuthController extends Controller
         // Profil
         $user->profile()->create([
             'pseudo' => $request->name . rand(1000, 9999),
+            'country_id' => $request->country_id,
             'timezone' => $request->timezone ?? 'UTC',
             'locale' => $request->locale ?? 'fr',
             'is_protected' => $user->is_minor,
@@ -77,7 +78,7 @@ class AuthController extends Controller
 
         return response()->json([
             'data' => [
-                'user' => $user->load('profile'),
+                'user' => $user->load('profile.country'),
                 'token' => $token,
                 'requires_email_verification' => true,
                 'requires_parental_consent' => $needsParental,
@@ -105,7 +106,7 @@ class AuthController extends Controller
 
         return response()->json([
             'data' => [
-                'user' => $user->load('profile'),
+                'user' => $user->load('profile.country'),
                 'token' => $token,
                 'requires_email_verification' => !$user->isEmailVerified(),
                 'requires_parental_consent' => $user->parental_consent_required && !$user->hasParentalConsent(),

@@ -1,12 +1,15 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../context/AuthContext";
 import { useSettings } from "../../context/SettingsContext";
 import { normalizeError } from "../../lib/api";
+import { countriesApi } from "../../lib/endpoints";
 import { ageFromDob } from "../../lib/game";
 import { useErrorMessage } from "../../hooks/useCommon";
 import { Alert, Button, Field } from "../../components/ui/primitives";
+import { CountryPicker } from "../../components/ui/CountryPicker";
 import AuthLayout from "./AuthLayout";
 
 export default function Register() {
@@ -16,6 +19,8 @@ export default function Register() {
   const navigate = useNavigate();
   const errMsg = useErrorMessage();
   const [form, setForm] = useState({ name: "", email: "", password: "", password_confirmation: "", date_of_birth: "", parental_email: "" });
+  const [countryId, setCountryId] = useState<string | null>(null);
+  const countries = useQuery({ queryKey: ["countries"], queryFn: countriesApi.list, staleTime: 60 * 60 * 1000 });
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,6 +41,7 @@ export default function Register() {
     form.email.trim() &&
     form.password.length >= 8 &&
     form.password === form.password_confirmation &&
+    !!countryId &&
     Number.isFinite(age) &&
     age >= 13 &&
     (!needsParent || form.parental_email.trim());
@@ -58,6 +64,7 @@ export default function Register() {
         password: form.password,
         password_confirmation: form.password_confirmation,
         date_of_birth: form.date_of_birth,
+        country_id: countryId!,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         locale: settings.locale,
         ...(needsParent ? { parental_email: form.parental_email.trim() } : {}),
@@ -101,6 +108,22 @@ export default function Register() {
           onBlur={() => setTouched(true)}
           error={fieldError("date_of_birth")}
         />
+        {countries.isError ? (
+          <Alert tone="danger">{t("profile.countryLoadError")}</Alert>
+        ) : (
+          <CountryPicker
+            label={t("auth.country")}
+            hint={t("auth.countryHint")}
+            countries={countries.data ?? []}
+            value={countryId}
+            disabled={countries.isLoading}
+            onChange={(id) => {
+              setCountryId(id);
+              setServerErrors((s) => ({ ...s, country_id: [] }));
+            }}
+            error={serverErrors.country_id?.[0]}
+          />
+        )}
         {needsParent && (
           <Field
             label={t("auth.parentalEmail")}

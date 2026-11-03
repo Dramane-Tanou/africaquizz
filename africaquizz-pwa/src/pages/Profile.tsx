@@ -7,6 +7,8 @@ import { authApi, countriesApi } from "../lib/endpoints";
 import { useErrorMessage, useMyStats } from "../hooks/useCommon";
 import { Alert, ButtonLink, Card, PageTitle, ProgressBar, Skeleton, cx } from "../components/ui/primitives";
 import { AVATAR_COUNT, Avatar } from "../components/ui/Brand";
+import { CountryPicker } from "../components/ui/CountryPicker";
+import { Flag, countryName } from "../components/ui/Flag";
 
 export default function Profile() {
   const { t, i18n } = useTranslation();
@@ -24,10 +26,6 @@ export default function Profile() {
     mutationFn: (countryId: string | null) => authApi.updateProfile({ country_id: countryId }),
     onSuccess: () => refresh(),
   });
-  const displayNames = new Intl.DisplayNames([i18n.resolvedLanguage ?? "fr"], { type: "region" });
-  const sortedCountries = [...(countries.data ?? [])].sort((a, b) =>
-    (displayNames.of(a.iso2) ?? a.iso2).localeCompare(displayNames.of(b.iso2) ?? b.iso2, i18n.resolvedLanguage),
-  );
 
   if (!isAuthenticated) {
     return (
@@ -61,6 +59,12 @@ export default function Profile() {
       <Card className="text-center">
         <Avatar index={settings.avatar} size={96} initial={pseudo} label={pseudo} className="mx-auto" />
         <h1 className="mt-3 font-title text-3xl font-bold">{pseudo}</h1>
+        {p?.country && (
+          <p className="mt-1 inline-flex items-center gap-2 font-semibold">
+            <Flag iso2={p.country.iso2} size={18} />
+            {countryName(p.country.iso2, i18n.resolvedLanguage ?? "fr")}
+          </p>
+        )}
         {p && <p className="font-bold text-brand-gold-dark">{t(`ranks.${p.rank}`)}</p>}
         {since && <p className="text-xs text-ink-2">{t("profile.memberSince", { date: since })}</p>}
 
@@ -120,23 +124,13 @@ export default function Profile() {
           <h2 className="font-title text-xl font-semibold">{t("profile.country")}</h2>
           <p className="text-sm text-ink-2">{t("profile.countryHelp")}</p>
         </div>
-        <label htmlFor="profile-country" className="text-sm font-bold">
-          {t("profile.country")}
-        </label>
-        <select
-          id="profile-country"
-          value={p?.country_id ?? ""}
+        <CountryPicker
+          label={t("profile.country")}
+          countries={countries.data ?? []}
+          value={p?.country_id ?? null}
           disabled={countries.isLoading || countries.isError || saveCountry.isPending}
-          onChange={(event) => saveCountry.mutate(event.target.value || null)}
-          className="w-full rounded-xl border border-line bg-white px-3 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand-gold dark:bg-ink"
-        >
-          <option value="">{t("profile.countryPlaceholder")}</option>
-          {sortedCountries.map((country) => (
-            <option key={country.id} value={country.id}>
-              {displayNames.of(country.iso2) ?? country.iso2}
-            </option>
-          ))}
-        </select>
+          onChange={(id) => saveCountry.mutate(id)}
+        />
         {countries.isLoading && <p className="text-sm text-ink-2">{t("profile.countryLoading")}</p>}
         {countries.isError && <Alert tone="danger">{t("profile.countryLoadError")}</Alert>}
         {saveCountry.isPending && <p className="text-sm text-ink-2">{t("profile.countrySaving")}</p>}

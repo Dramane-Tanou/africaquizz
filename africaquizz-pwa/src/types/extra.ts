@@ -2,7 +2,18 @@
 import type { Difficulty, Profile, Question, QuestionOption, User } from "./api";
 
 export type Locale = "fr" | "en";
-export type PlayMode = "classic" | "rapid" | "daily" | "revision" | "onboarding";
+export type PlayMode = "classic" | "rapid" | "daily" | "revision" | "onboarding" | "country";
+
+/** Incitations de l'accueil (GET /me/engagement). */
+export interface Engagement {
+  streak: { current: number; longest: number; freezes: number; played_today: boolean };
+  daily_goal: { target: number; done: number; games_today: number };
+  country: {
+    iso2: string;
+    question_count: number;
+    week: { rank: number | null; players: number; xp: number; next: { pseudo: string; gap_xp: number } | null };
+  } | null;
+}
 
 export interface MeProgress extends User {
   profile?: Profile;

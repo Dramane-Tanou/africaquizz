@@ -2,18 +2,18 @@ import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { leaderboardApi } from "../lib/endpoints";
-import { flag } from "../lib/game";
 import { useAuth } from "../context/AuthContext";
 import { useErrorMessage } from "../hooks/useCommon";
 import { Alert, Button, Card, PageTitle, Segmented, Skeleton, cx } from "../components/ui/primitives";
 import { Avatar } from "../components/ui/Brand";
+import { Flag, countryName } from "../components/ui/Flag";
 import type { LeaderboardPeriod, LeaderboardScope } from "../types/api";
 
 const SCOPES: LeaderboardScope[] = ["daily", "global", "country", "friends"];
 const PERIODS: LeaderboardPeriod[] = ["week", "month", "all", "day"];
 
 export default function Leaderboard() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated, user } = useAuth();
   const errMsg = useErrorMessage();
   const [params, setParams] = useSearchParams();
@@ -105,8 +105,9 @@ export default function Leaderboard() {
                 </span>
                 <Avatar index={hash(e.user.pseudo)} size={40} initial={e.user.pseudo} label={e.user.pseudo} />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate font-bold">
-                    {e.user.pseudo} {flag(e.user.country)}
+                  <span className="flex items-center gap-2 font-bold">
+                    <span className="truncate">{e.user.pseudo}</span>
+                    <Flag iso2={e.user.country} size={14} label={e.user.country ? countryName(e.user.country, i18n.resolvedLanguage ?? "fr") : undefined} />
                   </span>
                   <span className="block text-xs text-ink-2">
                     {t(`ranks.${e.user.rank}`, { defaultValue: e.user.rank })}

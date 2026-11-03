@@ -16,7 +16,8 @@ export function useStartGame() {
   const [loading, setLoading] = useState<PlayMode | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function start(mode: PlayMode) {
+  /** `country` (ISO-2) est requis pour le mode « Mon pays ». */
+  async function start(mode: PlayMode, country?: string) {
     setLoading(mode);
     setError(null);
     try {
@@ -26,9 +27,9 @@ export function useStartGame() {
           ? await dailyApi.start(locale)
           : mode === "revision"
             ? await revisionApi.start(locale)
-            : await quizApi.start(mode === "rapid" ? "rapid" : "classic", locale);
+            : await quizApi.start(mode === "rapid" ? "rapid" : "classic", locale, mode === "country" ? country : undefined);
       if (!session.questions?.length) throw new Error("empty");
-      createGame(session, mode);
+      createGame(session, mode, mode === "country" ? country : undefined);
       navigate(`/jouer/${session.id}`);
     } catch (e) {
       setError(e instanceof Error && e.message === "empty" ? t("quiz.noQuestions") : errMsg(e, t("quiz.noQuestions")));

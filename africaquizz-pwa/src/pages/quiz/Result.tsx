@@ -7,6 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useStartGame } from "../../hooks/useStartGame";
 import { Alert, Button, ButtonLink, Card } from "../../components/ui/primitives";
 import { LogoMark } from "../../components/ui/Brand";
+import { ResultNudges } from "../../components/home/Nudges";
 
 export default function Result() {
   const { id = "" } = useParams();
@@ -79,7 +80,7 @@ export default function Result() {
     }
   };
 
-  const replayMode = game.mode === "rapid" ? "rapid" : "classic";
+  const replayMode = game.mode === "rapid" ? "rapid" : game.mode === "country" && game.country ? "country" : "classic";
 
   return (
     <div className="mx-auto max-w-md space-y-5 px-4 py-8">
@@ -133,12 +134,14 @@ export default function Result() {
         </Card>
       )}
 
+      {isAuthenticated && game.mode !== "revision" && <ResultNudges />}
+
       {!isAuthenticated && <Alert tone="info">{t("result.guestNote")}</Alert>}
       {error && <Alert tone="danger">{error}</Alert>}
 
       <div className="space-y-3">
         {game.mode !== "daily" && game.mode !== "revision" && (
-          <Button block onClick={() => void start(replayMode)} loading={loading === replayMode}>
+          <Button block onClick={() => void start(replayMode, game.country)} loading={loading === replayMode}>
             {t("result.replay")}
           </Button>
         )}

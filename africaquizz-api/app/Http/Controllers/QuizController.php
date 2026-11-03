@@ -14,21 +14,31 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
+    public const MIN_COUNTRY_QUESTIONS = 5;
+
     public function start(Request $request)
     {
         $validated = $request->validate([
             'mode' => 'required|string|in:classic,rapid,daily',
             'locale' => 'nullable|string|in:fr,en',
+            // Mode « Mon pays » : questions rattachées à ce pays (code ISO-2).
+            'country' => 'nullable|string|size:2|exists:countries,iso2',
         ]);
 
         $locale = $validated['locale'] ?? 'fr';
         $mode = $validated['mode'];
+        $country = isset($validated['country']) ? strtoupper($validated['country']) : null;
         $questionCount = ($mode === 'rapid') ? 20 : 10;
 
         $questions = Question::where('status', 'PUBLIEE')
+            ->when($country, fn ($query) => $query->whereHas('countries', fn ($q) => $q->where('iso2', $country)))
             ->inRandomOrder()
             ->limit($questionCount)
             ->get();
+
+        if ($country && $questions->count() < self::MIN_COUNTRY_QUESTIONS) {
+            return response()->json(['message' => 'Pas encore assez de questions sur ce pays.'], 404);
+        }
 
         if ($questions->isEmpty()) {
             return response()->json(['message' => 'Aucune question disponible.'], 404);

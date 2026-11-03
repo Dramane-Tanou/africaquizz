@@ -10,8 +10,16 @@ class CountryController extends Controller
     {
         return response()->json([
             'data' => Country::query()
-                ->orderBy('iso2')
-                ->get(['id', 'iso2', 'iso3']),
+                ->leftJoin('regions', 'regions.id', '=', 'countries.region_id')
+                ->orderBy('countries.iso2')
+                ->get(['countries.id', 'countries.iso2', 'countries.iso3', 'regions.slug as region'])
+                ->map(fn (Country $country) => [
+                    'id' => $country->id,
+                    'iso2' => $country->iso2,
+                    'iso3' => $country->iso3,
+                    'region' => $country->region,
+                    'is_african' => $country->region !== null && $country->region !== 'reste-du-monde',
+                ]),
         ]);
     }
 }

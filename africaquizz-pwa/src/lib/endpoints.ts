@@ -15,6 +15,7 @@ import type {
 } from "../types/api";
 import type {
   DailyChallengeResponse,
+  Engagement,
   ExportResponse,
   GuestResponse,
   Locale,
@@ -43,15 +44,24 @@ export const authApi = {
     api.patch<{ data: Profile }>("/me/profile", body).then((r) => r.data.data),
 };
 
+export const engagementApi = {
+  get: () => api.get<{ data: Engagement }>("/me/engagement").then((r) => r.data.data),
+};
+
 export const countriesApi = {
   list: () => api.get<{ data: Country[] }>("/countries").then((r) => r.data.data),
 };
 
 // ---------- Quiz ----------
 export const quizApi = {
-  start: (mode: "classic" | "rapid", locale: Locale) =>
+  /** `country` (ISO-2) : mode « Mon pays », uniquement des questions sur ce pays. */
+  start: (mode: "classic" | "rapid", locale: Locale, country?: string) =>
     api
-      .post<{ data: PlaySession }>("/quiz/sessions", { mode, locale }, { headers: { "Idempotency-Key": uuid() } })
+      .post<{ data: PlaySession }>(
+        "/quiz/sessions",
+        { mode, locale, ...(country ? { country } : {}) },
+        { headers: { "Idempotency-Key": uuid() } },
+      )
       .then((r) => r.data.data),
 
   /** La même clé d'idempotence est réutilisée pour les nouvelles tentatives réseau. */

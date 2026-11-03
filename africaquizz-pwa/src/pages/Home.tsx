@@ -9,9 +9,11 @@ import { useErrorMessage, useMyStats } from "../hooks/useCommon";
 import { useStartGame } from "../hooks/useStartGame";
 import { Alert, Button, ButtonLink, ProgressBar, Skeleton, cx } from "../components/ui/primitives";
 import { Avatar } from "../components/ui/Brand";
+import { Flag, countryName } from "../components/ui/Flag";
+import { CountryCard, StreakGoalCard } from "../components/home/Nudges";
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const { settings } = useSettings();
   const stats = useMyStats();
@@ -31,7 +33,10 @@ export default function Home() {
       <section className="flex items-center gap-4">
         <Avatar index={settings.avatar} size={60} initial={pseudo} label={pseudo} />
         <div className="min-w-0 flex-1">
-          <h1 className="truncate font-title text-2xl font-bold">{pseudo ? t("home.hello", { name: pseudo }) : t("home.helloGuest")}</h1>
+          <h1 className="flex items-center gap-2 font-title text-2xl font-bold">
+            <span className="truncate">{pseudo ? t("home.hello", { name: pseudo }) : t("home.helloGuest")}</span>
+            {profile?.country && <Flag iso2={profile.country.iso2} size={18} label={countryName(profile.country.iso2, i18n.resolvedLanguage ?? "fr")} />}
+          </h1>
           {isAuthenticated && profile ? (
             <>
               <p className="text-sm font-bold text-ink-2">
@@ -67,6 +72,8 @@ export default function Home() {
         </div>
       )}
 
+      {isAuthenticated && <StreakGoalCard />}
+
       {/* Défi du jour */}
       <section className="relative overflow-hidden rounded-bubble border-2 border-black bg-brand-gold p-5 text-black shadow-flat">
         <div className="pattern-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
@@ -95,6 +102,8 @@ export default function Home() {
       </section>
 
       {error && <Alert tone="danger">{error}</Alert>}
+
+      {isAuthenticated && <CountryCard onPlay={(mode, country) => void start(mode, country)} loading={loading === "country"} />}
 
       {/* Modes de jeu */}
       <section>

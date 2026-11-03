@@ -18,6 +18,7 @@ use App\Http\Controllers\FriendChallengeController;
 use App\Http\Controllers\DuelController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\PushController;
+use App\Http\Controllers\EngagementController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\UserManagementController;
@@ -42,8 +43,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/me/export', [AuthController::class, 'exportData']);
         Route::delete('/me', [AuthController::class, 'deleteAccount']);
         Route::patch('/me/profile', [ProfileController::class, 'update']);
+        Route::get('/me/engagement', [EngagementController::class, 'show']);
         Route::get('/me/progress', function (Request $request) {
-            return response()->json(['data' => $request->user()->load('profile')]);
+            return response()->json(['data' => $request->user()->load('profile.country')]);
         });
     });
 
