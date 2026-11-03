@@ -1,7 +1,29 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { readJSON, removeKey, writeJSON } from "./storage";
 
-const BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || "http://127.0.0.1:8000";
+const LOCAL_HOSTS = ["localhost", "127.0.0.1"];
+
+/**
+ * URL de l'API. Si la PWA est ouverte via l'IP du PC (téléphone sur le même Wi-Fi),
+ * une API configurée sur localhost/127.0.0.1 est jointe sur cette même IP.
+ */
+function resolveApiBase(): string {
+  const configured = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || "http://127.0.0.1:8000";
+  const pageHost = window.location.hostname;
+  try {
+    const url = new URL(configured);
+    if (LOCAL_HOSTS.includes(url.hostname) && !LOCAL_HOSTS.includes(pageHost)) {
+      url.hostname = pageHost;
+      return url.toString().replace(/\/$/, "");
+    }
+  } catch {
+    // URL invalide : on la garde telle quelle.
+  }
+  return configured;
+}
+
+export const API_BASE = resolveApiBase();
+const BASE = API_BASE;
 
 export const TOKEN_KEY = "aq.token";
 
@@ -66,7 +88,7 @@ export function normalizeError(err: unknown): NormalizedError {
   const res = err.response;
   if (!res) return { kind: "network", message: "" };
   const body = (res.data ?? {}) as { message?: string; errors?: Record<string, string[]> };
-  // Certains messages du backend sont mal encodés (« terminÃƒ… ») : on ne les affiche pas.
+  // Garde-fou : un message serveur mal encodé (mojibake) n'est jamais affiché.
   const serverMsg = body.message && !/Ã|Â/.test(body.message) ? body.message : "";
   const status = res.status;
   if (status === 429) {

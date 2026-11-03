@@ -71,6 +71,5 @@ src/
 4. **Badges** : `/me/export` renvoie les `UserBadge` sans le code du badge. Ajouter `$user->badges()->with('badge')->get()` dans `exportData` permet au profil de les afficher tous (le code le lit déjà s'il est présent).
 5. **Inscription 13–15 ans** : la règle `required_if_age_between_13_and_15` n'est pas définie dans Laravel, elle provoque une erreur 500 si un e-mail parental est envoyé.
 6. **Révision** : rien n'alimente `revision_queues`, la file reste vide.
-7. **Messages d'erreur mal encodés** dans `QuizController` (« terminÃƒ… ») : le frontend les remplace par ses propres messages.
-8. **Défis entre amis** : `GET /challenges/{code}` ne renvoie pas les questions, l'écran n'est donc pas encore faisable.
-9. **Notifications push** : demandent un service worker personnalisé (`injectManifest`) ; prévu pour une étape suivante.
+7. **Défis entre amis** : `GET /challenges/{code}` ne renvoie pas les questions, l'écran n'est donc pas encore faisable.
+8. **Notifications push** : demandent un service worker personnalisé (`injectManifest`) ; prévu pour une étape suivante.

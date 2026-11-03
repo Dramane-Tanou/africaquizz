@@ -43,6 +43,7 @@ const en: Dict = {
     password: "Password",
     signIn: "Continue",
     loginError: "Unable to sign in.",
+    networkError: "Server unreachable. Check that the API is running (docker compose up -d) and open the app at http://localhost:5173.",
     setupError: "Unable to configure two-factor authentication.",
     codeError: "Incorrect verification code.",
     actionError: "The action could not be completed.",

@@ -41,6 +41,7 @@ const fr = {
     password: "Mot de passe",
     signIn: "Continuer",
     loginError: "Connexion impossible.",
+    networkError: "Serveur injoignable. Vérifie que l’API tourne (docker compose up -d) et ouvre l’app via http://localhost:5173.",
     setupError: "Impossible de configurer la double authentification.",
     codeError: "Code de vérification incorrect.",
     actionError: "L’action n’a pas pu être effectuée.",

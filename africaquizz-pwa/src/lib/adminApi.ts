@@ -1,6 +1,8 @@
 import axios from "axios";
+import i18n from "../i18n";
+import { API_BASE } from "./api";
 
-const BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || "http://127.0.0.1:8000";
+const BASE = API_BASE;
 export const ADMIN_TOKEN_KEY = "aq.admin.token";
 
 export const adminApi = axios.create({
@@ -17,7 +19,8 @@ adminApi.interceptors.request.use((config) => {
 
 export function adminErrorMessage(error: unknown, fallback: string): string {
   if (axios.isAxiosError<{ message?: string; errors?: Record<string, string[]> }>(error)) {
-    const body = error.response?.data;
+    if (!error.response) return i18n.t("admin.networkError");
+    const body = error.response.data;
     const firstFieldError = body?.errors ? Object.values(body.errors).flat()[0] : undefined;
     return firstFieldError || body?.message || fallback;
   }
