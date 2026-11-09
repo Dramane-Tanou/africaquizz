@@ -117973,5 +117973,1309 @@
     "url": "https://csrc.nist.gov/glossary/term/virtualization"
    }
   ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0001",
+  "category": "personnalites",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "En quelle année est né Ibrahim Traoré, président du Burkina Faso ?",
+    "explanation": "Ibrahim Traoré est né le 14 mars 1988 à Kéra, dans la commune de Bondokuy (province du Mouhoun).",
+    "key_takeaway": "Né en 1988, il avait 34 ans à son arrivée à la tête de l'État en 2022."
+   },
+   "en": {
+    "text": "In what year was Ibrahim Traoré, President of Burkina Faso, born?",
+    "explanation": "Ibrahim Traoré was born on 14 March 1988 in Kéra, in the commune of Bondokuy (Mouhoun province).",
+    "key_takeaway": "Born in 1988, he was 34 when he became head of state in 2022."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "1982",
+     "en": "1982"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "1985",
+     "en": "1985"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": true,
+    "text": {
+     "fr": "1988",
+     "en": "1988"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "1991",
+     "en": "1991"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_2",
+    "publisher": "Wikipedia",
+    "title": "Ibrahim Traoré",
+    "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9"
+   },
+   {
+    "source_type": "level_2",
+    "publisher": "Benin Web TV",
+    "title": "Le capitaine Ibrahim Traoré, président du Faso (biographie)",
+    "url": "https://beninwebtv.bj/portrait/ibrahim-traore-biographie-president-du-faso/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0002",
+  "category": "personnalites",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Dans quelle commune se trouve Kéra, le village natal d'Ibrahim Traoré ?",
+    "explanation": "Kéra fait partie de la commune de Bondokuy, dans la province du Mouhoun, à l'ouest du Burkina Faso.",
+    "key_takeaway": "Ibrahim Traoré est originaire de Bondokuy, dans le Mouhoun."
+   },
+   "en": {
+    "text": "In which commune is Kéra, Ibrahim Traoré's home village?",
+    "explanation": "Kéra is part of the commune of Bondokuy, in Mouhoun province, western Burkina Faso.",
+    "key_takeaway": "Ibrahim Traoré comes from Bondokuy, in Mouhoun."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": true,
+    "text": {
+     "fr": "Bondokuy",
+     "en": "Bondokuy"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Kaya",
+     "en": "Kaya"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Fada N'Gourma",
+     "en": "Fada N'Gourma"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Ouahigouya",
+     "en": "Ouahigouya"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_2",
+    "publisher": "Wikipedia",
+    "title": "Ibrahim Traoré",
+    "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9"
+   },
+   {
+    "source_type": "level_2",
+    "publisher": "Benin Web TV",
+    "title": "Le capitaine Ibrahim Traoré, président du Faso (biographie)",
+    "url": "https://beninwebtv.bj/portrait/ibrahim-traore-biographie-president-du-faso/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0003",
+  "category": "personnalites",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quelle discipline Ibrahim Traoré a-t-il étudiée à l'université de Ouagadougou ?",
+    "explanation": "Avant d'entrer à l'Académie militaire Georges-Namoano de Pô, il a étudié la géologie à l'université de Ouagadougou, aujourd'hui université Joseph-Ki-Zerbo.",
+    "key_takeaway": "Le président burkinabè a une formation de géologue."
+   },
+   "en": {
+    "text": "What subject did Ibrahim Traoré study at the University of Ouagadougou?",
+    "explanation": "Before joining the Georges-Namoano Military Academy in Pô, he studied geology at the University of Ouagadougou, now Joseph Ki-Zerbo University.",
+    "key_takeaway": "Burkina Faso's president trained as a geologist."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Le droit",
+     "en": "Law"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "La géologie",
+     "en": "Geology"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "La médecine",
+     "en": "Medicine"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "L'économie",
+     "en": "Economics"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_2",
+    "publisher": "Wikipedia",
+    "title": "Ibrahim Traoré",
+    "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9"
+   },
+   {
+    "source_type": "level_2",
+    "publisher": "Benin Web TV",
+    "title": "Le capitaine Ibrahim Traoré, président du Faso (biographie)",
+    "url": "https://beninwebtv.bj/portrait/ibrahim-traore-biographie-president-du-faso/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0004",
+  "category": "histoire",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "À quelle date Ibrahim Traoré a-t-il pris le pouvoir au Burkina Faso ?",
+    "explanation": "Le 30 septembre 2022, le capitaine Ibrahim Traoré a annoncé la destitution du lieutenant-colonel Paul-Henri Sandaogo Damiba, au pouvoir depuis janvier 2022.",
+    "key_takeaway": "Ibrahim Traoré dirige le Burkina Faso depuis le 30 septembre 2022."
+   },
+   "en": {
+    "text": "On what date did Ibrahim Traoré take power in Burkina Faso?",
+    "explanation": "On 30 September 2022, Captain Ibrahim Traoré announced the removal of Lieutenant-Colonel Paul-Henri Sandaogo Damiba, in power since January 2022.",
+    "key_takeaway": "Ibrahim Traoré has led Burkina Faso since 30 September 2022."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "24 janvier 2022",
+     "en": "24 January 2022"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "30 septembre 2022",
+     "en": "30 September 2022"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "21 octobre 2022",
+     "en": "21 October 2022"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "2 juillet 2024",
+     "en": "2 July 2024"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "APA News",
+    "title": "30 septembre 2022 : Ibrahim Traoré renverse Paul-Henri Damiba",
+    "url": "https://fr.apanews.net/news/30-septembre-2022-ibrahim-traore-renverse-paul-henri-damiba-au-burkina/"
+   },
+   {
+    "source_type": "level_2",
+    "publisher": "Wikipedia",
+    "title": "Ibrahim Traoré",
+    "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0005",
+  "category": "histoire",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Qui dirigeait le Burkina Faso juste avant Ibrahim Traoré ?",
+    "explanation": "Le lieutenant-colonel Paul-Henri Sandaogo Damiba présidait la transition depuis janvier 2022. Il a quitté le pouvoir début octobre 2022.",
+    "key_takeaway": "Ibrahim Traoré a succédé à Paul-Henri Sandaogo Damiba."
+   },
+   "en": {
+    "text": "Who led Burkina Faso just before Ibrahim Traoré?",
+    "explanation": "Lieutenant-Colonel Paul-Henri Sandaogo Damiba had led the transition since January 2022. He left power in early October 2022.",
+    "key_takeaway": "Ibrahim Traoré succeeded Paul-Henri Sandaogo Damiba."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Roch Marc Christian Kaboré",
+     "en": "Roch Marc Christian Kaboré"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Michel Kafando",
+     "en": "Michel Kafando"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": true,
+    "text": {
+     "fr": "Paul-Henri Sandaogo Damiba",
+     "en": "Paul-Henri Sandaogo Damiba"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Blaise Compaoré",
+     "en": "Blaise Compaoré"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "APA News",
+    "title": "30 septembre 2022 : Ibrahim Traoré renverse Paul-Henri Damiba",
+    "url": "https://fr.apanews.net/news/30-septembre-2022-ibrahim-traore-renverse-paul-henri-damiba-au-burkina/"
+   },
+   {
+    "source_type": "level_2",
+    "publisher": "Wikipedia",
+    "title": "Ibrahim Traoré",
+    "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0006",
+  "category": "histoire",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Devant quelle institution Ibrahim Traoré a-t-il prêté serment le 21 octobre 2022 ?",
+    "explanation": "Désigné par les assises nationales du 14 octobre 2022, il a prêté serment comme président de la Transition devant le Conseil constitutionnel le 21 octobre 2022.",
+    "key_takeaway": "L'investiture a eu lieu devant le Conseil constitutionnel."
+   },
+   "en": {
+    "text": "Before which institution was Ibrahim Traoré sworn in on 21 October 2022?",
+    "explanation": "Chosen by the national conference of 14 October 2022, he was sworn in as transitional president before the Constitutional Council on 21 October 2022.",
+    "key_takeaway": "He was sworn in before the Constitutional Council."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "L'Assemblée nationale",
+     "en": "The National Assembly"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "La Cour de cassation",
+     "en": "The Court of Cassation"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": true,
+    "text": {
+     "fr": "Le Conseil constitutionnel",
+     "en": "The Constitutional Council"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Le Conseil d'État",
+     "en": "The Council of State"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Africanews",
+    "title": "Burkina Faso, Ibrahim Traoré takes oath to lead transitional government",
+    "url": "https://www.africanews.com/amp/2022/10/21/burkina-faso-ibrahim-traore-takes-oath-to-lead-transitional-government/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Afrik.com",
+    "title": "Le capitaine Traoré investi président de la Transition au Burkina",
+    "url": "https://www.afrik.com/le-capitaine-traore-investi-president-de-la-transition-au-burkina"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0007",
+  "category": "personnalites",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quel grade militaire Ibrahim Traoré avait-il lorsqu'il a pris la tête du Burkina Faso ?",
+    "explanation": "Ibrahim Traoré était capitaine lorsqu'il a pris le pouvoir en septembre 2022. Il est souvent appelé « le capitaine Traoré ».",
+    "key_takeaway": "On l'appelle « le capitaine Traoré »."
+   },
+   "en": {
+    "text": "What military rank did Ibrahim Traoré hold when he took over Burkina Faso?",
+    "explanation": "Ibrahim Traoré was a captain when he took power in September 2022. He is often called 'Captain Traoré'.",
+    "key_takeaway": "He is known as 'Captain Traoré'."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Lieutenant",
+     "en": "Lieutenant"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "Capitaine",
+     "en": "Captain"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Colonel",
+     "en": "Colonel"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Général",
+     "en": "General"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_2",
+    "publisher": "Wikipedia",
+    "title": "Ibrahim Traoré",
+    "url": "https://en.wikipedia.org/wiki/Ibrahim_Traor%C3%A9"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Africanews",
+    "title": "Burkina Faso, Ibrahim Traoré takes oath to lead transitional government",
+    "url": "https://www.africanews.com/amp/2022/10/21/burkina-faso-ibrahim-traore-takes-oath-to-lead-transitional-government/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0008",
+  "category": "histoire",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "La Charte de la Transition modifiée en mai 2024 fixe la durée de la transition à combien de mois à partir du 2 juillet 2024 ?",
+    "explanation": "La Charte modifiée du 25 mai 2024 fixe la transition à 60 mois (cinq ans) à compter du 2 juillet 2024. Elle prévoit que les élections peuvent avoir lieu plus tôt si la situation sécuritaire le permet.",
+    "key_takeaway": "La transition a été prolongée de 60 mois à partir du 2 juillet 2024."
+   },
+   "en": {
+    "text": "The Transition Charter amended in May 2024 sets the transition at how many months from 2 July 2024?",
+    "explanation": "The amended Charter of 25 May 2024 sets the transition at 60 months (five years) from 2 July 2024. Elections may be held earlier if security allows.",
+    "key_takeaway": "The transition was extended by 60 months from 2 July 2024."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "21 mois",
+     "en": "21 months"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "36 mois",
+     "en": "36 months"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "48 mois",
+     "en": "48 months"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": true,
+    "text": {
+     "fr": "60 mois",
+     "en": "60 months"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "OIT – NATLEX",
+    "title": "Charte de la Transition modifiée du 25 mai 2024",
+    "url": "https://natlex.ilo.org/dyn/natlex2/r/natlex/fe/details?p3_isn=118687"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Al Jazeera",
+    "title": "Burkina Faso extends military rule by five years",
+    "url": "https://www.aljazeera.com/news/2024/5/26/burkina-faso-extends-military-rule-by-five-years"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0009",
+  "category": "afrique-monde",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF",
+   "ML",
+   "NE"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Avec quels pays le Burkina Faso forme-t-il la Confédération des États du Sahel (AES) ?",
+    "explanation": "Le traité instituant la Confédération « Alliance des États du Sahel » réunit le Burkina Faso, le Mali et le Niger.",
+    "key_takeaway": "L'AES rassemble le Burkina Faso, le Mali et le Niger."
+   },
+   "en": {
+    "text": "Which countries form the Confederation of Sahel States (AES) with Burkina Faso?",
+    "explanation": "The treaty establishing the 'Alliance of Sahel States' Confederation brings together Burkina Faso, Mali and Niger.",
+    "key_takeaway": "The AES brings together Burkina Faso, Mali and Niger."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": true,
+    "text": {
+     "fr": "Mali et Niger",
+     "en": "Mali and Niger"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Mali et Sénégal",
+     "en": "Mali and Senegal"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Niger et Tchad",
+     "en": "Niger and Chad"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Côte d'Ivoire et Ghana",
+     "en": "Côte d'Ivoire and Ghana"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Encyclopædia Universalis",
+    "title": "6 juillet 2024 : institution de la Confédération des États du Sahel",
+    "url": "https://www.universalis.fr/evenement/6-juillet-2024-institution-de-la-confederation-des-etats-du-sahel/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Sidwaya",
+    "title": "Alliance des États du Sahel : une année de marche vers la souveraineté",
+    "url": "https://www.sidwaya.info/alliance-des-etats-du-sahel-une-annee-de-marche-vers-la-souverainete/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0010",
+  "category": "afrique-monde",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF",
+   "ML",
+   "NE"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Dans quelle ville le traité de la Confédération des États du Sahel a-t-il été signé le 6 juillet 2024 ?",
+    "explanation": "Le 6 juillet 2024, lors du premier sommet de l'AES, les chefs d'État du Burkina Faso, du Mali et du Niger ont adopté à Niamey le traité instituant la Confédération.",
+    "key_takeaway": "La Confédération AES est née à Niamey le 6 juillet 2024."
+   },
+   "en": {
+    "text": "In which city was the Confederation of Sahel States treaty signed on 6 July 2024?",
+    "explanation": "On 6 July 2024, at the first AES summit, the heads of state of Burkina Faso, Mali and Niger adopted the treaty establishing the Confederation in Niamey.",
+    "key_takeaway": "The AES Confederation was founded in Niamey on 6 July 2024."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Ouagadougou",
+     "en": "Ouagadougou"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Bamako",
+     "en": "Bamako"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": true,
+    "text": {
+     "fr": "Niamey",
+     "en": "Niamey"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Dakar",
+     "en": "Dakar"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Encyclopædia Universalis",
+    "title": "6 juillet 2024 : institution de la Confédération des États du Sahel",
+    "url": "https://www.universalis.fr/evenement/6-juillet-2024-institution-de-la-confederation-des-etats-du-sahel/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Sidwaya",
+    "title": "Alliance des États du Sahel : une année de marche vers la souveraineté",
+    "url": "https://www.sidwaya.info/alliance-des-etats-du-sahel-une-annee-de-marche-vers-la-souverainete/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0011",
+  "category": "afrique-monde",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF",
+   "ML",
+   "NE"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quel document commun de l'AES le Burkina Faso a-t-il été le premier à mettre en circulation, le 29 janvier 2025 ?",
+    "explanation": "Le 29 janvier 2025, le Burkina Faso a lancé le passeport biométrique de l'AES, qui porte la mention « Confédération de l'Alliance des États du Sahel ». Le président Traoré en a été le premier détenteur.",
+    "key_takeaway": "Le passeport AES circule au Burkina depuis le 29 janvier 2025."
+   },
+   "en": {
+    "text": "Which common AES document did Burkina Faso put into circulation first, on 29 January 2025?",
+    "explanation": "On 29 January 2025, Burkina Faso launched the AES biometric passport, marked 'Confederation of the Alliance of Sahel States'. President Traoré was its first holder.",
+    "key_takeaway": "The AES passport has circulated in Burkina since 29 January 2025."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Une monnaie commune",
+     "en": "A common currency"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "Un passeport biométrique",
+     "en": "A biometric passport"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Un permis de conduire",
+     "en": "A driving licence"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Une carte bancaire",
+     "en": "A bank card"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "APA News",
+    "title": "Le président Traoré, premier détenteur du passeport sahélien",
+    "url": "https://fr.apanews.net/diplomacy/le-president-traore-premier-detenteur-du-passeport-sahelien/"
+   },
+   {
+    "source_type": "level_2",
+    "publisher": "Biometric Update",
+    "title": "Sahel states unveil common biometric passport Jan 29",
+    "url": "https://www.biometricupdate.com/202501/sahel-states-under-military-rule-unveil-common-biometric-passport-jan-29"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0012",
+  "category": "afrique-monde",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF",
+   "ML",
+   "NE"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Qui Ibrahim Traoré a-t-il remplacé à la présidence tournante de la Confédération AES en décembre 2025 ?",
+    "explanation": "Lors du deuxième sommet de l'AES à Bamako, le 23 décembre 2025, le collège des chefs d'État a désigné Ibrahim Traoré président en exercice pour un an, à la suite du Malien Assimi Goïta.",
+    "key_takeaway": "Ibrahim Traoré préside la Confédération AES depuis décembre 2025."
+   },
+   "en": {
+    "text": "Whom did Ibrahim Traoré succeed as rotating president of the AES Confederation in December 2025?",
+    "explanation": "At the second AES summit in Bamako on 23 December 2025, the heads of state named Ibrahim Traoré president for one year, succeeding Mali's Assimi Goïta.",
+    "key_takeaway": "Ibrahim Traoré has chaired the AES Confederation since December 2025."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Abdourahamane Tiani",
+     "en": "Abdourahamane Tiani"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "Assimi Goïta",
+     "en": "Assimi Goïta"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Mamadi Doumbouya",
+     "en": "Mamadi Doumbouya"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Mahamat Idriss Déby",
+     "en": "Mahamat Idriss Déby"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "APA News",
+    "title": "AES : Ibrahim Traoré prend la présidence tournante de la Confédération",
+    "url": "https://fr.apanews.net/diplomacy/aes-ibrahim-traore-prend-la-presidence-tournante-de-la-confederation/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Burkina24",
+    "title": "Le Capitaine Ibrahim Traoré est le nouveau Président de la Confédération AES pour un an",
+    "url": "https://burkina24.com/?p=427656"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0013",
+  "category": "societe",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quel est le domaine principal de l'initiative présidentielle « Faso Mêbo » ?",
+    "explanation": "Adoptée en Conseil des ministres le 16 octobre 2024, l'initiative Faso Mêbo vise à construire routes et infrastructures avec des matériaux locaux et des contributions volontaires. Elle est devenue l'Agence Faso Mêbo en janvier 2026.",
+    "key_takeaway": "Faso Mêbo, c'est « construire le pays » : routes et infrastructures."
+   },
+   "en": {
+    "text": "What is the main focus of the presidential initiative 'Faso Mêbo'?",
+    "explanation": "Adopted by the Council of Ministers on 16 October 2024, Faso Mêbo aims to build roads and infrastructure using local materials and voluntary contributions. It became the Faso Mêbo Agency in January 2026.",
+    "key_takeaway": "Faso Mêbo means 'building the country': roads and infrastructure."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "La santé",
+     "en": "Health"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Le numérique",
+     "en": "Digital technology"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": true,
+    "text": {
+     "fr": "Les routes et les infrastructures",
+     "en": "Roads and infrastructure"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Le tourisme",
+     "en": "Tourism"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Wakat Séra",
+    "title": "Faso Mêbo",
+    "url": "https://www.wakatsera.com/tag/faso-mebo/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Africanews",
+    "title": "Burkina Faso starts building first expressway in push to modernize",
+    "url": "https://www.africanews.com/amp/2025/12/21/burkina-faso-starts-building-first-expressway-in-push-to-modernize"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0014",
+  "category": "economie",
+  "type": "mcq",
+  "difficulty": "decouverte",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quelles villes relie la première autoroute du Burkina Faso, dont les travaux ont été lancés en décembre 2025 ?",
+    "explanation": "Le président Ibrahim Traoré a lancé le 16 décembre 2025, à Yimdi, les travaux de l'autoroute Ouagadougou–Bobo-Dioulasso : environ 332 km en 2 x 4 voies, financés sur ressources propres.",
+    "key_takeaway": "La première autoroute du pays relie Ouagadougou et Bobo-Dioulasso."
+   },
+   "en": {
+    "text": "Which cities does Burkina Faso's first expressway, started in December 2025, connect?",
+    "explanation": "On 16 December 2025 in Yimdi, President Ibrahim Traoré launched work on the Ouagadougou–Bobo-Dioulasso expressway: about 332 km, 2 x 4 lanes, financed from the country's own resources.",
+    "key_takeaway": "The country's first expressway links Ouagadougou and Bobo-Dioulasso."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": true,
+    "text": {
+     "fr": "Ouagadougou et Bobo-Dioulasso",
+     "en": "Ouagadougou and Bobo-Dioulasso"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Ouagadougou et Kaya",
+     "en": "Ouagadougou and Kaya"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Bobo-Dioulasso et Banfora",
+     "en": "Bobo-Dioulasso and Banfora"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Ouagadougou et Fada N'Gourma",
+     "en": "Ouagadougou and Fada N'Gourma"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "APA News",
+    "title": "Burkina : Traoré lance la construction de l'autoroute Ouaga-Bobo",
+    "url": "https://fr.apanews.net/news/burkina-traore-lance-la-construction-de-lautoroute-ouaga-bobo/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Africanews",
+    "title": "Burkina Faso starts building first expressway in push to modernize",
+    "url": "https://www.africanews.com/amp/2025/12/21/burkina-faso-starts-building-first-expressway-in-push-to-modernize"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0015",
+  "category": "economie",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quel est le nom du référentiel national de développement 2026-2030 adopté par le Burkina Faso le 29 janvier 2026 ?",
+    "explanation": "Le Conseil des ministres du 29 janvier 2026 a adopté le « Plan RELANCE », nouveau référentiel national de développement pour la période 2026-2030.",
+    "key_takeaway": "Le Burkina se développe désormais selon le Plan RELANCE 2026-2030."
+   },
+   "en": {
+    "text": "What is the name of the 2026-2030 national development framework adopted by Burkina Faso on 29 January 2026?",
+    "explanation": "The Council of Ministers of 29 January 2026 adopted the 'RELANCE Plan', the new national development framework for 2026-2030.",
+    "key_takeaway": "Burkina's development now follows the RELANCE Plan 2026-2030."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": true,
+    "text": {
+     "fr": "Plan RELANCE",
+     "en": "RELANCE Plan"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "Plan Sénégal émergent",
+     "en": "Emerging Senegal Plan"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Agenda 2063",
+     "en": "Agenda 2063"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Vision 2025",
+     "en": "Vision 2025"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Sidwaya",
+    "title": "Plan RELANCE 2026-2030 : une architecture stratégique",
+    "url": "https://www.sidwaya.info/plan-relance-2026-2030-une-architecture-strategique-pour-sortir-le-burkina-de-la-dependance/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Burkina24",
+    "title": "Dissolution des partis et adoption d'un nouveau référentiel national de développement",
+    "url": "https://burkina24.com/2026/01/29/burkina-faso-dissolution-des-partis-et-formations-politiques-et-adoption-dun-nouveau-referentiel-national-de-developpement/"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0016",
+  "category": "histoire",
+  "type": "mcq",
+  "difficulty": "connaisseur",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Sur quel site de Ouagadougou le mausolée Thomas-Sankara a-t-il été inauguré le 17 mai 2025 ?",
+    "explanation": "Le mausolée de Thomas Sankara et de ses douze compagnons a été inauguré le 17 mai 2025 sur l'ancien site du Conseil de l'Entente, là où ils ont été tués le 15 octobre 1987. Il a été conçu par l'agence de l'architecte burkinabè Francis Kéré.",
+    "key_takeaway": "Le mausolée se dresse au Conseil de l'Entente, lieu de l'assassinat de Sankara."
+   },
+   "en": {
+    "text": "On which Ouagadougou site was the Thomas Sankara mausoleum inaugurated on 17 May 2025?",
+    "explanation": "The mausoleum of Thomas Sankara and his twelve companions was inaugurated on 17 May 2025 on the former Conseil de l'Entente site, where they were killed on 15 October 1987. It was designed by Burkinabè architect Francis Kéré's firm.",
+    "key_takeaway": "The mausoleum stands at the Conseil de l'Entente, where Sankara was killed."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "La place de la Nation",
+     "en": "Place de la Nation"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "Le Conseil de l'Entente",
+     "en": "The Conseil de l'Entente"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Le stade du 4-Août",
+     "en": "The 4 August Stadium"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Ouaga 2000",
+     "en": "Ouaga 2000"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Sidwaya",
+    "title": "Mausolée Thomas-Sankara et ses 12 compagnons : un lieu de mémoire collective inauguré",
+    "url": "https://www.sidwaya.info/mausolee-thomas-sankara-et-ses-12-compagnons-un-lieu-de-memoire-collective-inaugure/"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Présidence du Faso",
+    "title": "Inauguration du Mausolée Thomas-SANKARA le 17 mai 2025",
+    "url": "https://www.presidencedufaso.bf/?p=41906"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0017",
+  "category": "societe",
+  "type": "mcq",
+  "difficulty": "expert",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Depuis la dissolution de la CENI décidée en 2025, quel ministère est chargé d'organiser les élections au Burkina Faso ?",
+    "explanation": "Le projet de loi dissolvant la Commission électorale nationale indépendante a été adopté en Conseil des ministres le 16 juillet 2025, puis voté le 28 octobre 2025. Ses missions sont transférées au ministère de l'Administration territoriale.",
+    "key_takeaway": "Les élections relèvent désormais du ministère de l'Administration territoriale."
+   },
+   "en": {
+    "text": "Since the electoral commission (CENI) was dissolved in 2025, which ministry organises elections in Burkina Faso?",
+    "explanation": "The bill dissolving the Independent National Electoral Commission was adopted by the Council of Ministers on 16 July 2025 and passed on 28 October 2025. Its duties went to the Ministry of Territorial Administration.",
+    "key_takeaway": "Elections now fall under the Ministry of Territorial Administration."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "Le ministère de la Justice",
+     "en": "The Ministry of Justice"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": true,
+    "text": {
+     "fr": "Le ministère de l'Administration territoriale",
+     "en": "The Ministry of Territorial Administration"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "Le ministère des Affaires étrangères",
+     "en": "The Ministry of Foreign Affairs"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": false,
+    "text": {
+     "fr": "Le ministère de la Communication",
+     "en": "The Ministry of Communication"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Burkina24",
+    "title": "Dissolution de la Commission électorale nationale indépendante (CENI)",
+    "url": "https://burkina24.com/?p=410082"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "International IDEA",
+    "title": "Democracy Tracker : Burkina Faso, juillet 2025",
+    "url": "https://www.idea.int/democracytracker/report/burkina-faso/july-2025"
+   }
+  ]
+ },
+ {
+  "external_id": "AF-ACT-BF-0018",
+  "category": "economie",
+  "type": "mcq",
+  "difficulty": "expert",
+  "time_limit_s": 20,
+  "is_sensitive": true,
+  "status": "PUBLIEE",
+  "countries": [
+   "BF"
+  ],
+  "translations": {
+   "fr": {
+    "text": "Quelle société d'État, relancée en 2024 avec la révision du code minier, gère les actifs miniers stratégiques du Burkina Faso ?",
+    "explanation": "La Société de participation minière du Burkina (SOPAMIB) détient et exploite des actifs miniers stratégiques. En juillet 2026, sa filiale SOPAMIB Bouboulou a obtenu un permis d'exploitation industrielle d'or près de Yako.",
+    "key_takeaway": "La SOPAMIB est le bras minier de l'État burkinabè."
+   },
+   "en": {
+    "text": "Which state company, revived in 2024 with the revised mining code, manages Burkina Faso's strategic mining assets?",
+    "explanation": "The Société de participation minière du Burkina (SOPAMIB) owns and operates strategic mining assets. In July 2026, its subsidiary SOPAMIB Bouboulou received an industrial gold mining permit near Yako.",
+    "key_takeaway": "SOPAMIB is the Burkinabè state's mining arm."
+   }
+  },
+  "options": [
+   {
+    "key": "A",
+    "is_correct": false,
+    "text": {
+     "fr": "La SONABEL",
+     "en": "SONABEL"
+    }
+   },
+   {
+    "key": "B",
+    "is_correct": false,
+    "text": {
+     "fr": "L'ONEA",
+     "en": "ONEA"
+    }
+   },
+   {
+    "key": "C",
+    "is_correct": false,
+    "text": {
+     "fr": "La SONABHY",
+     "en": "SONABHY"
+    }
+   },
+   {
+    "key": "D",
+    "is_correct": true,
+    "text": {
+     "fr": "La SOPAMIB",
+     "en": "SOPAMIB"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "source_type": "level_1",
+    "publisher": "Mining Weekly / Reuters",
+    "title": "Burkina Faso to nationalise more industrial mines, PM says",
+    "url": "https://www.miningweekly.com/article/burkina-faso-to-nationalise-more-industrial-mines-pm-says-2025-04-29"
+   },
+   {
+    "source_type": "level_1",
+    "publisher": "Mining Weekly",
+    "title": "Burkina Faso grants permit to State-owned gold miner for Bouboulou project",
+    "url": "https://www.miningweekly.com/article/burkina-faso-grants-permit-to-state-owned-gold-miner-for-bouboulou-project-2026-07-10"
+   }
+  ]
  }
 ]

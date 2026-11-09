@@ -137,6 +137,7 @@ export default function Play() {
             comboPct: r.combo?.bonus_pct ?? 0,
             explanation: r.explanation ?? "",
             takeaway: r.key_takeaway ?? "",
+            socialProof: r.social_proof ?? null,
           };
         }
         if (settings.vibrate && "vibrate" in navigator) navigator.vibrate?.(rec.correct ? 30 : [40, 60, 40]);

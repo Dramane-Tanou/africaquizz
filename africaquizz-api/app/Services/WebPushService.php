@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Models\PushSubscription;
+use App\Models\User;
+use Carbon\Carbon;
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
@@ -23,6 +25,11 @@ class WebPushService
 
     public function sendToUser(string $userId, string $title, string $body, array $data = []): array
     {
+        $user = User::with('profile')->find($userId);
+        if ($user && self::isQuietHours($user)) {
+            return ['sent' => 0, 'failed' => 0, 'skipped' => 'quiet_hours'];
+        }
+
         $subs = PushSubscription::where('user_id', $userId)->get();
         $sent = 0; $failed = 0;
         $payload = json_encode(['title' => $title, 'body' => $body, 'data' => $data]);
@@ -53,6 +60,21 @@ class WebPushService
         }
 
         return ['sent' => $sent, 'failed' => $failed];
+    }
+
+    /**
+     * Heures calmes : pas de notification aux mineurs entre 22 h et 6 h, heure locale du joueur.
+     */
+    public static function isQuietHours(User $user, ?\DateTimeInterface $at = null): bool
+    {
+        if (!$user->is_minor) {
+            return false;
+        }
+        $hour = (int) Carbon::instance($at ?? now())
+            ->setTimezone($user->profile?->timezone ?: 'UTC')
+            ->format('G');
+
+        return $hour >= 22 || $hour < 6;
     }
 
     public function subscribe(array $data, ?string $userId, ?string $guestId): PushSubscription

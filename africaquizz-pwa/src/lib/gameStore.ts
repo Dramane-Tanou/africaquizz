@@ -15,6 +15,7 @@ export interface AnswerRecord {
   comboPct: number;
   explanation: string;
   takeaway: string;
+  socialProof?: { correct_pct: number; answers: number } | null;
 }
 
 export interface GameState {

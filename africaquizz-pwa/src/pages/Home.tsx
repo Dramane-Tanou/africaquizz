@@ -10,7 +10,7 @@ import { useStartGame } from "../hooks/useStartGame";
 import { Alert, Button, ButtonLink, ProgressBar, Skeleton, cx } from "../components/ui/primitives";
 import { Avatar } from "../components/ui/Brand";
 import { Flag, countryName } from "../components/ui/Flag";
-import { CountryCard, StreakGoalCard } from "../components/home/Nudges";
+import { CountryCard, DiscoveryCard, NextStepCard, StreakGoalCard } from "../components/home/Nudges";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
@@ -72,6 +72,8 @@ export default function Home() {
         </div>
       )}
 
+      {isAuthenticated && <NextStepCard dailyAvailable={daily.data?.status === "available"} onPlay={(mode) => void start(mode)} loading={!!loading} />}
+
       {isAuthenticated && <StreakGoalCard />}
 
       {/* Défi du jour */}
@@ -104,6 +106,8 @@ export default function Home() {
       {error && <Alert tone="danger">{error}</Alert>}
 
       {isAuthenticated && <CountryCard onPlay={(mode, country) => void start(mode, country)} loading={loading === "country"} />}
+
+      {isAuthenticated && <DiscoveryCard />}
 
       {/* Modes de jeu */}
       <section>

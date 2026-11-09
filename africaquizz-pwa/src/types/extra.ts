@@ -13,6 +13,10 @@ export interface Engagement {
     question_count: number;
     week: { rank: number | null; players: number; xp: number; next: { pseudo: string; gap_xp: number } | null };
   } | null;
+  /** Collection « pays explorés » : pays dont le joueur a trouvé au moins une question. */
+  discovery: { discovered: number; available: number };
+  /** Questions de révision arrivées à échéance. */
+  revision_due: number;
 }
 
 export interface MeProgress extends User {

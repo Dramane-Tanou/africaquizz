@@ -134,6 +134,8 @@ export interface AnswerResponse {
     combo: { streak: number; bonus_pct: number };
     explanation: string;
     key_takeaway: string;
+    /** Part réelle des joueurs qui ont trouvé (null tant qu'il y a moins de 20 réponses). */
+    social_proof: { correct_pct: number; answers: number } | null;
     session: { score: number; xp: number };
   };
 }

@@ -86,6 +86,16 @@ export default function Settings() {
         </div>
         <Toggle checked={settings.hideTimer} onChange={(v) => update({ hideTimer: v })} label={t("settings.hideTimer")} hint={t("settings.hideTimerHint")} />
         <Toggle checked={settings.vibrate} onChange={(v) => update({ vibrate: v })} label={t("settings.sound")} />
+        <Toggle
+          checked={settings.breakReminders}
+          onChange={(v) => update({ breakReminders: v })}
+          label={t("settings.breakReminders")}
+          hint={t("settings.breakRemindersHint")}
+        />
+        <details className="rounded-2xl border-2 border-line p-3 text-sm">
+          <summary className="cursor-pointer font-bold">{t("settings.nudgesTitle")}</summary>
+          <p className="mt-2 text-ink-2">{t("settings.nudgesText")}</p>
+        </details>
         {install.canPrompt ? (
           <Button variant="green" block onClick={() => void install.prompt()}>
             📲 {t("settings.install")}

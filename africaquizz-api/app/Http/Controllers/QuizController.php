@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 class QuizController extends Controller
 {
     public const MIN_COUNTRY_QUESTIONS = 5;
+    // En dessous, le pourcentage de bonnes réponses n'est pas significatif : on ne l'affiche pas
+    public const SOCIAL_PROOF_MIN_ANSWERS = 20;
 
     public function start(Request $request)
     {
@@ -179,6 +181,11 @@ class QuizController extends Controller
         $locale = $request->input('locale', 'fr');
         $translation = $question->translations()->where('locale', $locale)->first();
 
+        // Norme sociale : part réelle des joueurs qui ont trouvé cette question
+        $stats = QuizAnswer::where('question_id', $question->id)
+            ->selectRaw('COUNT(*) as total, SUM(CASE WHEN is_correct THEN 1 ELSE 0 END) as correct')
+            ->first();
+
         return response()->json([
             'data' => [
                 'correct' => $isCorrect,
@@ -192,6 +199,10 @@ class QuizController extends Controller
                 ],
                 'explanation' => $translation ? $translation->explanation : '',
                 'key_takeaway' => $translation ? $translation->key_takeaway : '',
+                'social_proof' => $stats->total >= self::SOCIAL_PROOF_MIN_ANSWERS ? [
+                    'correct_pct' => (int) round(100 * $stats->correct / $stats->total),
+                    'answers' => (int) $stats->total,
+                ] : null,
                 'session' => [
                     'score' => $session->fresh()->score,
                     'xp' => $session->fresh()->xp_earned,

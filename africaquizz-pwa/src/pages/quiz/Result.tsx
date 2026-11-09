@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useStartGame } from "../../hooks/useStartGame";
 import { Alert, Button, ButtonLink, Card } from "../../components/ui/primitives";
 import { LogoMark } from "../../components/ui/Brand";
-import { ResultNudges } from "../../components/home/Nudges";
+import { BreakNudge, ResultNudges } from "../../components/home/Nudges";
 
 export default function Result() {
   const { id = "" } = useParams();
@@ -135,6 +135,7 @@ export default function Result() {
       )}
 
       {isAuthenticated && game.mode !== "revision" && <ResultNudges />}
+      <BreakNudge gameId={game.session.id} startedAt={game.startedAt} />
 
       {!isAuthenticated && <Alert tone="info">{t("result.guestNote")}</Alert>}
       {error && <Alert tone="danger">{error}</Alert>}

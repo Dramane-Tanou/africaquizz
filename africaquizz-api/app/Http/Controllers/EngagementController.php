@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\QuizSession;
+use App\Models\RevisionQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,8 +45,33 @@ class EngagementController extends Controller
                     'games_today' => $gamesToday,
                 ],
                 'country' => $profile?->country ? $this->countryStanding($user->id, $profile->country) : null,
+                'discovery' => $this->discovery($user->id),
+                'revision_due' => RevisionQueue::where('user_id', $user->id)->where('next_review_at', '<=', now())->count(),
             ],
         ]);
+    }
+
+    /**
+     * Collection « pays explorés » : pays dont le joueur a trouvé au moins une question,
+     * parmi les pays qui ont des questions publiées.
+     */
+    private function discovery(string $userId): array
+    {
+        $available = DB::table('question_countries as qc')
+            ->join('questions as q', 'q.id', '=', 'qc.question_id')
+            ->where('q.status', 'PUBLIEE')
+            ->distinct()
+            ->count('qc.country_id');
+
+        $discovered = DB::table('quiz_answers as qa')
+            ->join('quiz_sessions as qs', 'qs.id', '=', 'qa.quiz_session_id')
+            ->join('question_countries as qc', 'qc.question_id', '=', 'qa.question_id')
+            ->where('qs.user_id', $userId)
+            ->where('qa.is_correct', true)
+            ->distinct()
+            ->count('qc.country_id');
+
+        return ['discovered' => $discovered, 'available' => $available];
     }
 
     private function countryStanding(string $userId, $country): array

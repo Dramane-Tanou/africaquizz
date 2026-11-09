@@ -113,6 +113,11 @@ export function FeedbackPanel({
         )}
       </div>
       {!record.correct && correctLabel && <p className="mt-1 text-sm font-semibold text-ink">{t("quiz.correctWas", { answer: correctLabel })}</p>}
+      {record.socialProof && (
+        <p className="mt-1 text-sm font-semibold text-ink">
+          👥 {t(record.correct ? "nudge.proofRight" : "nudge.proofWrong", { pct: record.socialProof.correct_pct })}
+        </p>
+      )}
       {record.correct && record.comboPct > 0 && (
         <p className="mt-1 text-sm font-bold text-warning">🔥 {t("quiz.combo", { n: record.comboStreak, pct: record.comboPct })}</p>
       )}

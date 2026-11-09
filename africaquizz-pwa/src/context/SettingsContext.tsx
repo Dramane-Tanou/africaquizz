@@ -11,6 +11,7 @@ export interface Settings {
   hideTimer: boolean;
   vibrate: boolean;
   avatar: number; // index d'avatar prédéfini, conservé sur l'appareil
+  breakReminders: boolean; // proposer une pause après une longue session de jeu
 }
 
 const KEY = "aq.settings";
@@ -21,6 +22,7 @@ const defaults: Settings = {
   hideTimer: false,
   vibrate: true,
   avatar: 0,
+  breakReminders: true,
 };
 
 interface Ctx {
