@@ -119,12 +119,39 @@ class GoogleAuthTest extends TestCase
         $this->postJson('/api/v1/auth/google', ['credential' => 'id-token'])
             ->assertOk()
             ->assertJsonPath('data.user.id', $user->id)
-            ->assertJsonPath('data.user.has_password', true)
             ->assertJsonStructure(['data' => ['token']]);
 
         $user->refresh();
         $this->assertSame('1234567890', $user->google_id);
         $this->assertTrue($user->isEmailVerified());
+    }
+
+    public function test_linking_an_unverified_account_drops_its_password_and_sessions(): void
+    {
+        $this->fakeGoogle();
+        // Compte créé par un tiers avec l'adresse du joueur, jamais vérifié
+        $squatter = User::create(['name' => 'Intrus', 'email' => 'awa@gmail.com', 'password' => Hash::make('motdepasse123')]);
+        $squatter->createToken('auth_token');
+
+        $this->postJson('/api/v1/auth/google', ['credential' => 'id-token'])
+            ->assertOk()
+            ->assertJsonPath('data.user.has_password', false);
+
+        $squatter->refresh();
+        $this->assertNull($squatter->password);
+        $this->assertSame(1, $squatter->tokens()->count()); // seul le jeton qui vient d'être émis
+    }
+
+    public function test_linking_a_verified_account_keeps_its_password(): void
+    {
+        $this->fakeGoogle();
+        $user = User::create(['name' => 'Awa', 'email' => 'awa@gmail.com', 'password' => Hash::make('motdepasse123'), 'email_verified_at' => now()]);
+
+        $this->postJson('/api/v1/auth/google', ['credential' => 'id-token'])
+            ->assertOk()
+            ->assertJsonPath('data.user.has_password', true);
+
+        $this->assertTrue(Hash::check('motdepasse123', $user->fresh()->password));
     }
 
     public function test_banned_account_cannot_sign_in_with_google(): void

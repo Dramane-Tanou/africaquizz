@@ -104,7 +104,13 @@ class AuthController extends Controller
                 ], 403);
             }
 
-            // Google garantit la propriété de l'e-mail : on lie le compte existant
+            // Google garantit la propriété de l'e-mail : on lie le compte existant.
+            // Si l'e-mail n'avait jamais été vérifié, le compte a pu être créé par un tiers
+            // avec l'adresse de ce joueur : on retire ce mot de passe et ses sessions.
+            if (!$user->isEmailVerified()) {
+                $user->password = null;
+                $user->tokens()->delete();
+            }
             $user->google_id ??= $google['sub'];
             $user->email_verified_at ??= now();
             $user->save();

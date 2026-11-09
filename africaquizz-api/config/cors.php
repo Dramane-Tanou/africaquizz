@@ -10,6 +10,8 @@ return [
         'http://127.0.0.1:5173',
         'http://127.0.0.1:3000',
         'http://127.0.0.1:3001',
+        // Domaines de production, séparés par des virgules (ex. https://app.africaquizz.com)
+        ...array_filter(array_map('trim', explode(',', (string) env('CORS_ALLOWED_ORIGINS', '')))),
     ],
     // En local uniquement : autorise la PWA ouverte via l'IP du PC (réseau Wi-Fi, téléphone de test).
     'allowed_origins_patterns' => env('APP_ENV') === 'local' ? [
