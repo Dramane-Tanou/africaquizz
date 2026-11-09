@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command('league:refresh')->weeklyOn(1, '03:00');
+Schedule::command('daily:generate')->dailyAt('00:01')->withoutOverlapping();

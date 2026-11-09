@@ -17,7 +17,7 @@ class DailyChallengeController extends Controller
     public function show(Request $request)
     {
         $today = now()->toDateString();
-        $challenge = DailyChallenge::where('challenge_date', $today)->first();
+        $challenge = $this->todayChallenge($today);
 
         if (!$challenge) {
             return response()->json([
@@ -57,7 +57,7 @@ class DailyChallengeController extends Controller
     public function start(Request $request)
     {
         $today = now()->toDateString();
-        $challenge = DailyChallenge::where('challenge_date', $today)->firstOrFail();
+        $challenge = $this->todayChallenge($today) ?? abort(404);
         $user = $request->user('sanctum');
 
         // Vérifier que l'utilisateur n'a pas déjà joué
@@ -122,5 +122,19 @@ class DailyChallengeController extends Controller
                 'questions' => $questionData,
             ]
         ], 201);
+    }
+
+    /**
+     * Défi du jour, créé à la volée si la tâche planifiée daily:generate n'est pas encore passée.
+     */
+    private function todayChallenge(string $today): ?DailyChallenge
+    {
+        $challenge = DailyChallenge::whereDate('challenge_date', $today)->first();
+        if (!$challenge) {
+            \Illuminate\Support\Facades\Artisan::call('daily:generate', ['--date' => $today]);
+            $challenge = DailyChallenge::whereDate('challenge_date', $today)->first();
+        }
+
+        return $challenge;
     }
 }
