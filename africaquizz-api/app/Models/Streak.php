@@ -26,8 +26,9 @@ class Streak extends Model
                 'is_new_day' => false,
             ];
         } else {
-            $daysDiff = now()->setTimezone($timezone)->startOfDay()
-                ->diffInDays(\Carbon\Carbon::parse($lastDate)->startOfDay());
+            // Carbon 3 renvoie un écart décimal signé : on compare des jours entiers, dans le fuseau du joueur
+            $daysDiff = (int) round(\Carbon\Carbon::parse($lastDate, $timezone)->startOfDay()
+                ->diffInDays(now()->setTimezone($timezone)->startOfDay()));
 
             if ($daysDiff === 1) {
                 $this->current_streak++;
