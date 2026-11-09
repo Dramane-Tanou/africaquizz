@@ -11,6 +11,7 @@ import Play from "./pages/quiz/Play";
 import Result from "./pages/quiz/Result";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import GoogleComplete from "./pages/auth/GoogleComplete";
 
 // Écrans secondaires chargés à la demande (bundle initial plus léger pour les réseaux lents).
 const Leaderboard = lazy(() => import("./pages/Leaderboard"));
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="resultats/:id" element={<Result />} />
         <Route path="connexion" element={<GuestOnly><Login /></GuestOnly>} />
         <Route path="inscription" element={<GuestOnly><Register /></GuestOnly>} />
+        <Route path="inscription/google" element={<GuestOnly><GoogleComplete /></GuestOnly>} />
         <Route path="mot-de-passe-oublie" element={<ForgotPassword />} />
         <Route path="reinitialiser" element={<ResetPassword />} />
         <Route path="verifier-email" element={<VerifyEmail />} />

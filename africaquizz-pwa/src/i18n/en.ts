@@ -212,6 +212,12 @@ const en: Dict = {
     resent: "Email sent again.",
     parentalSent: "An email was sent to your parent to confirm your sign-up.",
     welcome: "Welcome, {{name}}!",
+    or: "or",
+    googleFailed: "Google sign-in failed. Please try again.",
+    googleUnavailable: "Google sign-in is unavailable right now.",
+    googleExpired: "Your Google session has expired. Start again with the Google button.",
+    googleCompleteTitle: "One more step",
+    googleCompleteIntro: "Google account: {{email}}. Enter your date of birth and country to finish.",
   },
   onboarding: {
     title: "Test your knowledge",

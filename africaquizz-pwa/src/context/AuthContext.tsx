@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getToken, setToken, setUnauthorizedHandler } from "../lib/api";
 import { authApi } from "../lib/endpoints";
 import { readJSON, writeJSON } from "../lib/storage";
-import type { LoginRequest, RegisterRequest } from "../types/api";
+import type { GoogleAuthRequest, LoginRequest, RegisterRequest } from "../types/api";
 import type { MeProgress } from "../types/extra";
 
 interface AuthCtx {
@@ -15,9 +15,15 @@ interface AuthCtx {
   markOnboarded: () => void;
   login: (body: LoginRequest) => Promise<void>;
   register: (body: RegisterRequest) => Promise<{ requiresParental: boolean }>;
+  /** Connexion ou inscription Google ; `needsProfile` si l'âge et le pays restent à saisir. */
+  googleSignIn: (body: GoogleAuthRequest) => Promise<GoogleResult>;
   logout: () => Promise<void>;
   refresh: () => void;
 }
+
+export type GoogleResult =
+  | { status: "signed_in"; requiresParental: boolean }
+  | { status: "needs_profile"; name: string | null; email: string };
 
 const AuthContext = createContext<AuthCtx | null>(null);
 export const ME_KEY = ["me"] as const;
@@ -74,6 +80,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [accept],
   );
 
+  const googleSignIn = useCallback(
+    async (body: GoogleAuthRequest): Promise<GoogleResult> => {
+      const res = await authApi.google(body);
+      if ("requires_profile" in res) return { status: "needs_profile", ...res.google };
+      accept(res.token, res.user as MeProgress);
+      return { status: "signed_in", requiresParental: !!res.requires_parental_consent };
+    },
+    [accept],
+  );
+
   const logout = useCallback(async () => {
     try {
       await authApi.logout();
@@ -98,10 +114,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       markOnboarded,
       login,
       register,
+      googleSignIn,
       logout,
       refresh: () => void qc.invalidateQueries({ queryKey: ME_KEY }),
     }),
-    [token, me.data, me.isLoading, onboarded, markOnboarded, login, register, logout, qc],
+    [token, me.data, me.isLoading, onboarded, markOnboarded, login, register, googleSignIn, logout, qc],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

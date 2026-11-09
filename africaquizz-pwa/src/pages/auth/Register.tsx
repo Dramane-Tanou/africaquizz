@@ -10,6 +10,8 @@ import { ageFromDob } from "../../lib/game";
 import { useErrorMessage } from "../../hooks/useCommon";
 import { Alert, Button, Field } from "../../components/ui/primitives";
 import { CountryPicker } from "../../components/ui/CountryPicker";
+import { GoogleButton } from "../../components/auth/GoogleButton";
+import { useGoogleAuth } from "../../hooks/useGoogleAuth";
 import AuthLayout from "./AuthLayout";
 
 export default function Register() {
@@ -25,6 +27,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
+  const googleAuth = useGoogleAuth();
 
   const age = useMemo(() => ageFromDob(form.date_of_birth), [form.date_of_birth]);
   const needsParent = age >= 13 && age <= 15;
@@ -94,6 +97,10 @@ export default function Register() {
         </>
       }
     >
+      <div className="mb-4 space-y-3">
+        <GoogleButton text="signup_with" onCredential={(c) => void googleAuth.onCredential(c)} />
+        {googleAuth.error && <Alert tone="danger">{googleAuth.error}</Alert>}
+      </div>
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
         <Field label={t("auth.name")} name="name" autoComplete="given-name" required maxLength={255} value={form.name} onChange={set("name")} error={serverErrors.name?.[0]} />
         <Field label={t("auth.email")} name="email" type="email" autoComplete="email" required value={form.email} onChange={set("email")} error={serverErrors.email?.[0]} />

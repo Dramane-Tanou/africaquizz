@@ -9,6 +9,8 @@ use App\Models\PasswordResetToken;
 use App\Models\Consent;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\GoogleAuthRequest;
+use App\Services\GoogleIdTokenVerifier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,46 +31,12 @@ class AuthController extends Controller
             ], 403);
         }
 
-        $user = User::create([
+        $user = $this->createPlayer($request, [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'date_of_birth' => $request->date_of_birth,
         ]);
-        $user->computeAgeStatus();
-        $user->save();
-
-        // Profil
-        $user->profile()->create([
-            'pseudo' => $request->name . rand(1000, 9999),
-            'country_id' => $request->country_id,
-            'timezone' => $request->timezone ?? 'UTC',
-            'locale' => $request->locale ?? 'fr',
-            'is_protected' => $user->is_minor,
-        ]);
-
-        // Consentements obligatoires
-        Consent::create([
-            'user_id' => $user->id,
-            'document_type' => 'terms',
-            'version' => '1.0',
-            'accepted_at' => now(),
-        ]);
-        Consent::create([
-            'user_id' => $user->id,
-            'document_type' => 'privacy',
-            'version' => '1.0',
-            'accepted_at' => now(),
-        ]);
-
-        // Si 13-15 ans : demande de consentement parental
         $needsParental = $user->parental_consent_required;
-        if ($needsParental) {
-            $user->update([
-                'parental_email' => $request->parental_email,
-                'parental_consent_token' => Str::random(64),
-            ]);
-        }
 
         // Token de vérification email
         $this->sendVerificationEmail($user);
@@ -112,6 +80,124 @@ class AuthController extends Controller
                 'requires_parental_consent' => $user->parental_consent_required && !$user->hasParentalConsent(),
             ]
         ]);
+    }
+
+    // === CONNEXION / INSCRIPTION GOOGLE ===
+    public function google(GoogleAuthRequest $request, GoogleIdTokenVerifier $verifier)
+    {
+        $google = $verifier->verify($request->credential);
+        if (!$google) {
+            return response()->json([
+                'message' => 'Connexion Google impossible. Réessaie.',
+                'error_code' => 'GOOGLE_TOKEN_INVALID',
+            ], 401);
+        }
+
+        $user = User::where('google_id', $google['sub'])->first()
+            ?? User::where('email', $google['email'])->first();
+
+        if ($user) {
+            if ($user->is_banned) {
+                return response()->json([
+                    'message' => 'Compte suspendu.',
+                    'reason' => $user->ban_reason,
+                ], 403);
+            }
+
+            // Google garantit la propriété de l'e-mail : on lie le compte existant
+            $user->google_id ??= $google['sub'];
+            $user->email_verified_at ??= now();
+            $user->save();
+
+            return response()->json([
+                'data' => [
+                    'user' => $user->load('profile.country'),
+                    'token' => $user->createToken('auth_token')->plainTextToken,
+                    'requires_email_verification' => false,
+                    'requires_parental_consent' => $user->parental_consent_required && !$user->hasParentalConsent(),
+                ]
+            ]);
+        }
+
+        // Nouveau joueur : l'âge et le pays restent obligatoires, comme à l'inscription classique
+        if (!$request->date_of_birth || !$request->country_id) {
+            return response()->json([
+                'data' => [
+                    'requires_profile' => true,
+                    'google' => ['name' => $google['name'], 'email' => $google['email']],
+                ]
+            ]);
+        }
+
+        $age = \Carbon\Carbon::parse($request->date_of_birth)->age;
+        if ($age < 13) {
+            return response()->json([
+                'message' => 'Inscription non autorisée. Un âge minimum est requis pour utiliser Africa Quizz.',
+                'error_code' => 'AGE_TOO_YOUNG',
+            ], 403);
+        }
+        if ($age < 15 && !$request->parental_email) {
+            return response()->json([
+                'message' => 'Un email parental est requis pour les 13-15 ans.',
+                'errors' => ['parental_email' => ['Un email parental est requis pour les 13-15 ans.']],
+            ], 422);
+        }
+
+        $user = $this->createPlayer($request, [
+            'name' => $google['name'] ?: strstr($google['email'], '@', true),
+            'email' => $google['email'],
+            'google_id' => $google['sub'],
+            'email_verified_at' => now(),
+        ]);
+
+        return response()->json([
+            'data' => [
+                'user' => $user->load('profile.country'),
+                'token' => $user->createToken('auth_token')->plainTextToken,
+                'requires_email_verification' => false,
+                'requires_parental_consent' => $user->parental_consent_required,
+                'parental_email_sent_to' => $user->parental_consent_required ? $user->parental_email : null,
+            ]
+        ], 201);
+    }
+
+    /**
+     * Crée le compte joueur, son profil et ses consentements (inscription e-mail ou Google).
+     */
+    private function createPlayer(Request $request, array $attributes): User
+    {
+        $user = User::create($attributes + ['date_of_birth' => $request->date_of_birth]);
+        $user->computeAgeStatus();
+        $user->save();
+
+        // Profil
+        $user->profile()->create([
+            'pseudo' => $user->name . rand(1000, 9999),
+            'country_id' => $request->country_id,
+            'timezone' => $request->timezone ?? 'UTC',
+            'locale' => $request->locale ?? 'fr',
+            'is_protected' => $user->is_minor,
+        ]);
+
+        // Consentements obligatoires
+        foreach (['terms', 'privacy'] as $document) {
+            Consent::create([
+                'user_id' => $user->id,
+                'document_type' => $document,
+                'version' => '1.0',
+                'accepted_at' => now(),
+            ]);
+        }
+
+        // Si 13-15 ans : demande de consentement parental
+        if ($user->parental_consent_required) {
+            $user->update([
+                'parental_email' => $request->parental_email,
+                'parental_consent_token' => Str::random(64),
+            ]);
+        }
+
+        return $user;
     }
 
     public function guest()
@@ -286,14 +372,15 @@ class AuthController extends Controller
 
     public function deleteAccount(Request $request)
     {
+        $user = $request->user();
+
+        // Un compte créé via Google n'a pas de mot de passe : la confirmation écrite suffit
         $validated = $request->validate([
-            'password' => 'required|string',
+            'password' => [$user->password ? 'required' : 'nullable', 'string'],
             'confirmation' => 'required|in:SUPPRIMER,DELETE',
         ]);
 
-        $user = $request->user();
-
-        if (!Hash::check($validated['password'], $user->password)) {
+        if ($user->password && !Hash::check($validated['password'], $user->password)) {
             return response()->json(['message' => 'Mot de passe incorrect.'], 422);
         }
 

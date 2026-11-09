@@ -13,12 +13,13 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasUuids;
 
     protected $fillable = [
-        'name', 'email', 'password', 'date_of_birth', 'age', 'is_minor',
+        'name', 'email', 'google_id', 'password', 'date_of_birth', 'age', 'is_minor',
         'parental_consent_required', 'parental_consent_token', 'parental_consent_confirmed_at',
         'parental_email', 'email_verified_at', 'is_banned', 'ban_reason', 'banned_at', 'is_anonymized',
     ];
 
-    protected $hidden = ['password', 'remember_token', 'parental_consent_token'];
+    protected $hidden = ['password', 'remember_token', 'parental_consent_token', 'google_id'];
+    protected $appends = ['has_password'];
     protected $casts = [
         'email_verified_at' => 'datetime',
         'parental_consent_confirmed_at' => 'datetime',
@@ -41,6 +42,9 @@ class User extends Authenticatable
     public function reports() { return $this->hasMany(QuestionReport::class); }
     public function emailVerificationTokens() { return $this->hasMany(EmailVerificationToken::class); }
     public function passwordResetTokens() { return $this->hasMany(PasswordResetToken::class); }
+
+    // Faux pour un compte créé via Google : la PWA ne demande alors pas de mot de passe
+    public function getHasPasswordAttribute(): bool { return !is_null($this->password); }
 
     // Helpers
     public function isEmailVerified(): bool { return !is_null($this->email_verified_at); }
@@ -65,6 +69,7 @@ class User extends Authenticatable
         $this->update([
             'name' => 'Anonyme',
             'email' => 'deleted_' . $this->id . '@anonymized.local',
+            'google_id' => null,
             'password' => bcrypt(\Str::random(64)),
             'is_anonymized' => true,
             'parental_email' => null,

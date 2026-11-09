@@ -6,6 +6,8 @@ import type {
   AuthResponse,
   Country,
   FinishResponse,
+  GoogleAuthRequest,
+  GoogleProfileRequired,
   Leaderboard,
   LeaderboardPeriod,
   LeaderboardScope,
@@ -29,6 +31,8 @@ import type {
 export const authApi = {
   login: (body: LoginRequest) => api.post<AuthResponse>("/auth/login", body).then((r) => r.data.data),
   register: (body: RegisterRequest) => api.post<AuthResponse>("/auth/register", body).then((r) => r.data.data),
+  google: (body: GoogleAuthRequest) =>
+    api.post<AuthResponse | GoogleProfileRequired>("/auth/google", body).then((r) => r.data.data),
   guest: () => api.post<GuestResponse>("/auth/guest").then((r) => r.data.data),
   logout: () => api.post("/auth/logout"),
   me: () => api.get<{ data: MeProgress }>("/me/progress").then((r) => r.data.data),
@@ -38,8 +42,9 @@ export const authApi = {
   resetPassword: (body: { token: string; email: string; password: string; password_confirmation: string }) =>
     api.post<{ message: string }>("/auth/reset-password", body),
   exportData: () => api.get<ExportResponse>("/me/export").then((r) => r.data),
-  deleteAccount: (password: string) =>
-    api.delete<{ message: string }>("/me", { data: { password, confirmation: "SUPPRIMER" } }),
+  /** `password` est omis pour un compte Google sans mot de passe. */
+  deleteAccount: (password?: string) =>
+    api.delete<{ message: string }>("/me", { data: { ...(password ? { password } : {}), confirmation: "SUPPRIMER" } }),
   updateProfile: (body: { country_id: string | null }) =>
     api.patch<{ data: Profile }>("/me/profile", body).then((r) => r.data.data),
 };

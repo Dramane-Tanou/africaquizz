@@ -5,6 +5,8 @@ import { useAuth } from "../../context/AuthContext";
 import { normalizeError } from "../../lib/api";
 import { useErrorMessage } from "../../hooks/useCommon";
 import { Alert, Button, Field } from "../../components/ui/primitives";
+import { GoogleButton } from "../../components/auth/GoogleButton";
+import { useGoogleAuth } from "../../hooks/useGoogleAuth";
 import AuthLayout from "./AuthLayout";
 
 export default function Login() {
@@ -18,6 +20,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const from = (location.state as { from?: string } | null)?.from ?? "/";
+  const googleAuth = useGoogleAuth(from);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -48,6 +51,10 @@ export default function Login() {
         </>
       }
     >
+      <div className="mb-4 space-y-3">
+        <GoogleButton text="signin_with" onCredential={(c) => void googleAuth.onCredential(c)} />
+        {googleAuth.error && <Alert tone="danger">{googleAuth.error}</Alert>}
+      </div>
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
         <Field label={t("auth.email")} name="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         <Field

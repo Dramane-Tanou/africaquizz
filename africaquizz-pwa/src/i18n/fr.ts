@@ -210,6 +210,12 @@ const fr = {
     resent: "E-mail renvoyé.",
     parentalSent: "Un e-mail a été envoyé à ton parent pour confirmer ton inscription.",
     welcome: "Bienvenue, {{name}} !",
+    or: "ou",
+    googleFailed: "La connexion avec Google a échoué. Réessaie.",
+    googleUnavailable: "Connexion Google indisponible pour le moment.",
+    googleExpired: "Ta session Google a expiré. Recommence avec le bouton Google.",
+    googleCompleteTitle: "Encore une étape",
+    googleCompleteIntro: "Compte Google : {{email}}. Indique ta date de naissance et ton pays pour terminer.",
   },
   onboarding: {
     title: "Teste tes connaissances",

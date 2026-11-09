@@ -40,11 +40,14 @@ export default function Settings() {
     }
   }
 
+  // Compte créé via Google : pas de mot de passe à saisir
+  const needsPassword = user?.has_password !== false;
+
   async function deleteAccount() {
     setDeleting(true);
     setMsg(null);
     try {
-      await authApi.deleteAccount(password);
+      await authApi.deleteAccount(needsPassword ? password : undefined);
       await logout();
       navigate("/", { replace: true });
     } catch (e) {
@@ -115,12 +118,14 @@ export default function Settings() {
           ) : (
             <div className="space-y-3 rounded-2xl border-2 border-danger/40 bg-danger-soft p-4">
               <p className="text-sm font-semibold text-danger">{t("settings.deleteIntro")}</p>
-              <Field label={t("auth.password")} name="delete-password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              {needsPassword && (
+                <Field label={t("auth.password")} name="delete-password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              )}
               <div className="grid grid-cols-2 gap-3">
                 <Button variant="secondary" onClick={() => setShowDelete(false)}>
                   {t("app.cancel")}
                 </Button>
-                <Button variant="danger" loading={deleting} disabled={!password} onClick={() => void deleteAccount()}>
+                <Button variant="danger" loading={deleting} disabled={needsPassword && !password} onClick={() => void deleteAccount()}>
                   {t("settings.deleteConfirm")}
                 </Button>
               </div>

@@ -20,6 +20,7 @@ Autres commandes : `npm run typecheck`, `npm run build` (vérifie les types puis
 |---|---|---|
 | `/bienvenue` | Onboarding : 5 questions d'essai en invité | `POST /quiz/sessions`, `POST …/answers` |
 | `/inscription`, `/connexion` | Compte (âge minimum 13 ans, e-mail parental 13–15 ans) | `POST /auth/register`, `/auth/login` |
+| `/inscription/google` | Fin d'inscription Google : date de naissance et pays (bouton « Continuer avec Google » sur `/inscription` et `/connexion`) | `POST /auth/google` |
 | `/admin/connexion` | Connexion des comptes SuperAdmin, Admin, Relecteur et Éditeur ; redirection vers l’espace du rôle après authentification | `/admin/auth/login`, `/admin/auth/2fa/*` |
 | `/admin/superadmin` | Pilotage global, utilisateurs, comptes de l’équipe, taxonomie, contenu et audit | `/admin/super/*`, `/admin/audit-logs` |
 | `/admin/admin` | Indicateurs, gestion des joueurs, modération, revue du contenu et audit | `/admin/super/dashboard/*`, `/admin/super/users`, `/admin/reports`, `/admin/audit-logs` |

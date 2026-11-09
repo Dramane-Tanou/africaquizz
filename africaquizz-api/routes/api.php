@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
     // AUTH PUBLIC
     Route::post('/auth/register', [AuthController::class, 'register'])->middleware('throttle:auth');
     Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:auth');
+    Route::post('/auth/google', [AuthController::class, 'google'])->middleware('throttle:auth');
     Route::post('/auth/guest', [AuthController::class, 'guest']);
     Route::post('/auth/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('throttle:password-reset');

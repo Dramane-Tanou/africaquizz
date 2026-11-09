@@ -29,6 +29,14 @@ npm run dev -- --host 127.0.0.1
 
 Ouvrez `http://127.0.0.1:5173/bienvenue`. Le bouton « Jouer 5 questions » démarre une partie invitée à partir des questions locales de démonstration.
 
+## Connexion avec Google
+
+1. Dans [Google Cloud Console](https://console.cloud.google.com/apis/credentials), créez un **ID client OAuth** de type « Application Web ».
+2. Ajoutez dans « Origines JavaScript autorisées » l'URL de la PWA (`http://localhost:5173`, `http://127.0.0.1:5173` en local, puis le domaine de production).
+3. Renseignez le même ID client dans `africaquizz-api\.env` (`GOOGLE_CLIENT_ID=...`) et `africaquizz-pwa\.env` (`VITE_GOOGLE_CLIENT_ID=...`), puis relancez l'API (`php artisan migrate`) et la PWA.
+
+L'API vérifie l'ID token auprès de Google (audience, émetteur, expiration, e-mail vérifié). Un compte existant avec le même e-mail est lié automatiquement ; un nouveau joueur indique ensuite sa date de naissance et son pays (âge minimum 13 ans, e-mail parental entre 13 et 15 ans). Sans ID client, le bouton Google n'est pas affiché.
+
 ## Tester en local avec toutes les questions
 
 ### 1. Démarrer l’API

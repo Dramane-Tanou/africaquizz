@@ -10,6 +10,8 @@ export interface User {
   is_minor: boolean;
   is_banned: boolean;
   is_anonymized: boolean;
+  /** Faux pour un compte créé via Google (aucun mot de passe local). */
+  has_password?: boolean;
   created_at: string;
   updated_at: string;
   profile?: Profile;
@@ -54,6 +56,23 @@ export interface RegisterRequest {
 export interface LoginRequest {
   email: string;
   password: string;
+}
+
+export interface GoogleAuthRequest {
+  credential: string;
+  date_of_birth?: string;
+  country_id?: string;
+  timezone?: string;
+  locale?: 'fr' | 'en';
+  parental_email?: string;
+}
+
+/** Nouveau joueur Google : l'API demande l'âge et le pays avant de créer le compte. */
+export interface GoogleProfileRequired {
+  data: {
+    requires_profile: true;
+    google: { name: string | null; email: string };
+  };
 }
 
 export interface AuthResponse {
