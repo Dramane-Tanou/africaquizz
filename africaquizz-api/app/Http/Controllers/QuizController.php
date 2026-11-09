@@ -6,6 +6,7 @@ use App\Models\QuizSession;
 use App\Models\QuizAnswer;
 use App\Models\Question;
 use App\Models\QuizSessionQuestion;
+use App\Models\RevisionQueue;
 use App\Models\Streak;
 use App\Models\Badge;
 use App\Models\UserBadge;
@@ -177,6 +178,11 @@ class QuizController extends Controller
 
         $session->increment('score', $scoreGained);
         $session->increment('xp_earned', $xpGained);
+
+        // Question ratée (ou temps écoulé) : elle rejoint la file de révision espacée du joueur
+        if (!$isCorrect && $session->user_id) {
+            RevisionQueue::enqueue($session->user, $question->id);
+        }
 
         $locale = $request->input('locale', 'fr');
         $translation = $question->translations()->where('locale', $locale)->first();

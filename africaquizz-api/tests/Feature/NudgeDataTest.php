@@ -96,4 +96,22 @@ class NudgeDataTest extends TestCase
             ->assertJsonPath('data.discovery.available', 2)
             ->assertJsonPath('data.revision_due', 1);
     }
+
+    public function test_a_missed_question_joins_the_player_review_queue(): void
+    {
+        $this->seed(\Database\Seeders\DemoQuestionsSeeder::class);
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $start = $this->postJson('/api/v1/quiz/sessions', ['mode' => 'classic', 'locale' => 'fr'])->assertCreated();
+        $question = Question::with('options')->find($start->json('data.questions.0.id'));
+        $wrong = $question->options->firstWhere('is_correct', false)->option_key;
+
+        $this->withHeader('Idempotency-Key', (string) \Illuminate\Support\Str::uuid())
+            ->postJson("/api/v1/quiz/sessions/{$start->json('data.id')}/answers", [
+                'question_id' => $question->id, 'answer' => $wrong, 'client_elapsed_ms' => 3000,
+            ])->assertOk()->assertJsonPath('data.correct', false);
+
+        $this->assertDatabaseHas('revision_queue', ['user_id' => $user->id, 'question_id' => $question->id, 'level' => 0]);
+    }
 }
