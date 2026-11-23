@@ -17,7 +17,7 @@ class BadgeSeeder extends Seeder
             ['code' => 'ambassador', 'name_fr' => 'Ambassadeur', 'name_en' => 'Ambassador', 'tier' => 'or', 'rule_params' => ['invited_friends' => 3]],
         ];
         foreach ($badges as $b) {
-            Badge::create($b);
+            Badge::updateOrCreate(['code' => $b['code']], $b);
         }
         $this->command->info('BadgeSeeder : 8 badges créés.');
     }
