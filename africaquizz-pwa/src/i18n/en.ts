@@ -221,8 +221,8 @@ const en: Dict = {
   },
   onboarding: {
     title: "Test your knowledge",
-    intro: "5 questions to discover Africa Quizz. No account needed.",
-    start: "Play 5 questions",
+    intro: "10 questions to discover Africa Quizz. No account needed.",
+    start: "Play 10 questions",
     login: "I already have an account",
     resultTitle: "Well played!",
     resultText: "You got {{correct}} right answer(s) out of {{total}}.",

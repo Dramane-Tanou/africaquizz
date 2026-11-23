@@ -128,7 +128,7 @@ class QuizController extends Controller
         $timeLimit = $question->time_limit_s;
         $rtt = $validated['rtt_ms'] ?? 0;
         $tolerance = min($rtt, 2000);
-        $tEff = max($validated['client_elapsed_ms'], ($timeLimit * 1000) - $tolerance);
+        $tEff = max(0, $validated['client_elapsed_ms'] - $tolerance);
         $tEff = min($tEff, $timeLimit * 1000);
 
         $speedBonus = 0;

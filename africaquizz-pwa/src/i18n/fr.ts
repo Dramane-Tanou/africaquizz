@@ -219,8 +219,8 @@ const fr = {
   },
   onboarding: {
     title: "Teste tes connaissances",
-    intro: "5 questions pour découvrir Africa Quizz. Pas besoin de compte.",
-    start: "Jouer 5 questions",
+    intro: "10 questions pour découvrir Africa Quizz. Pas besoin de compte.",
+    start: "Jouer 10 questions",
     login: "J'ai déjà un compte",
     resultTitle: "Bien joué !",
     resultText: "Tu as trouvé {{correct}} bonne(s) réponse(s) sur {{total}}.",
